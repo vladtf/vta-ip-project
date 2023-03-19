@@ -1,0 +1,41 @@
+@startuml login-account-2fa
+
+Client -> Frontend: get login form
+activate Frontend
+Frontend --> Client: login form (HTML)
+deactivate Frontend
+Client -> Frontend: enter data and click login
+activate Frontend
+Frontend -> Backend: HTTP request (POST /login)
+activate Backend
+Backend -> Database: get user
+activate Database
+Database --> Backend: user
+deactivate Database
+Backend --> Frontend: HTTP response (200)
+Backend -> SMTP: send email with token to user
+SMTP --> Client: email with token
+deactivate Backend
+Frontend --> Client: success message (HTML)
+deactivate Frontend
+Frontend -> Client: redirect to two-factor page
+Client -> Frontend: enter token from email and click login
+activate Frontend
+Frontend -> Backend: HTTP request (POST /login-two-factor)
+activate Backend
+Backend -> Database: get latest token for user
+activate Database
+Database --> Backend: token
+deactivate Database
+Backend --> Frontend: HTTP response (200) with JWT token
+deactivate Backend
+Frontend --> Client: success message (HTML) with JWT token in local storage
+deactivate Frontend
+Frontend -> Client: redirect to home page
+activate Client
+Client -> Frontend: get home page
+activate Frontend
+Frontend --> Client: home page (HTML)
+deactivate Frontend
+
+@enduml

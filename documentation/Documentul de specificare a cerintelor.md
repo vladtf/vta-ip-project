@@ -145,6 +145,7 @@ Client:
 * the frontend displays a success message and redirects the user to the login page
 
 
+
 2. Login
 
 * the user enters the website and a login form is displayed

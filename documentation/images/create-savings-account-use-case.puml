@@ -1,0 +1,30 @@
+@startuml create-new-saving-account
+
+Client -> Frontend: get registration form
+activate Frontend
+Frontend --> Client: registration form (HTML)
+deactivate Frontend
+
+Client -> Frontend: enter data and click register
+activate Frontend
+Frontend -> Backend: HTTP request (POST /register)
+activate Backend
+Backend -> Database: create new account
+activate Database
+Database --> Backend: success
+deactivate Database
+Backend --> Frontend: HTTP response (200)
+deactivate Backend
+Frontend --> Client: success message (HTML)
+deactivate Frontend
+Frontend -> Client: redirect to login page
+activate Client
+Client --> Frontend: HTTP request (GET /login)
+
+' * the users navigates to accounts page
+' * click on the create savings account button
+' * fill the form with the required data (type of account, amount, etc.)
+' * click on the create button
+' * the frontend sends an HTTP request to the backend which creates a new savings account in the database and returns the new account to the frontend
+' * the user is redirected to the accounts page where he can see the new account
+@enduml
