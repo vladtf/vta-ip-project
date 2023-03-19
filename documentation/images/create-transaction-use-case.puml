@@ -1,0 +1,49 @@
+@startuml create-new-saving-account
+
+Client -> Frontend: get transactions page
+activate Frontend
+Frontend -> Backend: HTTP request (GET /transactions)
+activate Backend
+Backend -> Database: get transactions
+activate Database
+Database --> Backend: transactions
+deactivate Database
+Backend --> Frontend: HTTP response (200)
+deactivate Backend
+Frontend --> Client: transactions page (HTML)
+deactivate Frontend
+Client -> Frontend: click on make transaction button
+activate Frontend
+Frontend -> Client: display make transaction form
+deactivate Frontend
+Client -> Frontend: fill the form with the required data
+activate Frontend
+Frontend -> Frontend: validate the data
+Frontend -> Client: display errors if any
+deactivate Frontend
+Client -> Frontend: click on make transaction button
+activate Frontend
+Frontend -> Backend: HTTP request (POST /transactions)
+activate Backend
+Backend -> Database: validate transaction
+activate Database
+Database --> Backend: validation result
+deactivate Database
+Backend --> Frontend: HTTP response (200)
+deactivate Backend
+Frontend -> Client: display success message
+deactivate Frontend
+Client -> Frontend: click on confirm transaction button
+activate Frontend
+Frontend -> Backend: HTTP request (POST /transactions)
+activate Backend
+Backend -> Database: create transaction
+activate Database
+Database --> Backend: transaction
+deactivate Database
+Backend --> Frontend: HTTP response (200)
+deactivate Backend
+Frontend -> Client: redirect to transactions page
+deactivate Frontend
+
+@enduml
