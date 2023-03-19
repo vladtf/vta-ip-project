@@ -55,6 +55,20 @@ denumire, cum va utiliza sistemul/ va folosi rezultatele sistemului/ va influent
 sistemului, competente necesare pentru utilizarea sistemului, număr aproximativ de 
 utilizatori în categorie; frecvența accesării sistemului.
 
+The platform includes two types of accounts: client and administrator.
+Client:
+- can view account information such as balances and transaction history including deposits, withdrawals, and transfers.    
+- can transfer funds between accounts, either within the same bank or to other banks.
+- can create savings account.
+
+
+Administrator:
+- can troubleshoot and offer technical support, ensuring that any issues are resolved promptly and effectively.
+- can create and manage user accounts for bank employees ensuring that each user has the appropriate level of access and permissions required to perform their job duties.
+
+
+
+
 TODO 
 
 ### Cerințe de sistem (echipamente de calcul, dispozitive, comunicația în rețea)
