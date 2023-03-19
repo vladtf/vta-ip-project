@@ -14,8 +14,8 @@
     - [Riscurile proiectului: competiție, factori de experiență, de planificare, tehnologici, externi](#riscurile-proiectului-competiție-factori-de-experiență-de-planificare-tehnologici-externi)
   - [SISTEMUL PROPUS](#sistemul-propus)
     - [Descrierea categoriilor de utilizatori direcți/indirecți ai sistemului. Pentru fiecare categorie:](#descrierea-categoriilor-de-utilizatori-direcțiindirecți-ai-sistemului-pentru-fiecare-categorie)
-    - [Cerințe de sistem (echipamente de calcul, dispozitive, comunicația în rețea)](#cerințe-de-sistem-echipamente-de-calcul-dispozitive-comunicația-în-rețea)
-    - [Cerințe funcționale (in limbaj natural)](#cerințe-funcționale-in-limbaj-natural)
+    - [Cerințe de sistem](#cerințe-de-sistem)
+    - [Cerințe funcționale](#cerințe-funcționale)
     - [Cerințe nefuncționale (curs „Extragerea cerințelor”): constrângeri hardware/software, de](#cerințe-nefuncționale-curs-extragerea-cerințelor-constrângeri-hardwaresoftware-de)
     - [Modele ale sistemului (curs „Extragerea cerințelor”)](#modele-ale-sistemului-curs-extragerea-cerințelor)
       - [Actorii si cazurile de utilizare prin care interacționează](#actorii-si-cazurile-de-utilizare-prin-care-interacționează)
@@ -55,18 +55,61 @@ denumire, cum va utiliza sistemul/ va folosi rezultatele sistemului/ va influent
 sistemului, competente necesare pentru utilizarea sistemului, număr aproximativ de 
 utilizatori în categorie; frecvența accesării sistemului.
 
-TODO 
+### Cerințe de sistem
 
-### Cerințe de sistem (echipamente de calcul, dispozitive, comunicația în rețea)
-TODO 
+Desktop:
+- operational system Windows, Linux or Mac OS
+- browser (Chrome, Firefox, Opera, Safari, Edge) that supports HTML5, CSS3, JavaScript
+- internet access with at least 1 Mbps speed
 
-### Cerințe funcționale (in limbaj natural)
-TODO 
+Mobile:
+- operational system Android or iOS
+- browser (Chrome, Firefox, Opera, Safari, Edge) that supports HTML5, CSS3, JavaScript
+- internet access with at least 1 Mbps speed
+
+### Cerințe funcționale
+
+Client is allowed to:
+- login to the system
+- to create a new bank account
+- to view the balance of the account
+- to make transactions between accounts
+- to pay services
+- to track transactions
+- to view the account statement
+
+Administrator can:
+- manage user accounts
+- manage user cards
+- manage user transactions
+- to issues raised by users
+
+
 
 ### Cerințe nefuncționale (curs „Extragerea cerințelor”): constrângeri hardware/software, de 
 comunicare, legislative, etc; cerințe de calitate a produsului, cerințe impuse proiectului.
 
-TODO 
+1. Hardware/software constrains:
+- backend application will be developed in Java, using Spring Boot framework
+- frontend application will be developed in JavaScript, using React framework
+- both applications will be developed using a versioning system Git
+- the result of development will be two Docker images containing the respective binaries
+- Docker images will be uploaded to an AWS ECR repository
+- images will be deployed on an AWS ECS server cluster
+- applications will run continuously
+
+
+2. Security requirements:
+-  the backend application should not expose sensitive data (password, card number, etc.) to the users without required permissions (not even through the frontend)
+-  users must be authenticated before performing any action in the application
+-  user role must be verified before performing any action in the application
+-  rights of each account must be well defined and separated between privileged and unprivileged
+-  simple users should not be able to perform operations that require administrator rights
+-  for operations that require administrator rights, simple users must enter an administrator password
+-  any data transfer between frontend and backend must be encrypted
+-  backend must accept only requests from the frontend specified in the requirements (not from other frontends)
+-  any attempt to access unauthorized resources must be reported to the administrator
+
 
 ### Modele ale sistemului (curs „Extragerea cerințelor”)
 TODO 
