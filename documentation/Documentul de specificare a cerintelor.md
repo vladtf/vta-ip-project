@@ -30,7 +30,7 @@ Scopul acestui document este de a descrie cerintele sistemului de gestiune a unu
 autentificarea securizata a unui utilizator, gestionarea contului bancar, a cardurilor asociate, a tranzactiilor, a soldului, a extraselor de cont, a contului de economii, a plati cu cardul la un comerciant (fictiv).
 
 ### Domeniul/contextul de utilizare al sistemului
-TODO 
+TODO # HERE 
 
 ### Lista de definiții si abrevieri
 TODO 
