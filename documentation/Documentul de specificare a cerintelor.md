@@ -144,6 +144,7 @@ Client:
 * the backend verifies the data and creates a new bank account in the database
 * the frontend displays a success message and redirects the user to the login page
 
+![](./puml/svg/create-new-account-use-case/create-new-account-use-case.svg)
 
 
 2. Login
@@ -154,6 +155,8 @@ Client:
 * the backend verifies the data and returns a JWT token wich contains the user role and the user id (if the data is correct)
 * frontend stores the token in the browser's local storage
 * user is home page of the application where he can see his accounts
+
+![](./puml/svg/login-account-use-case/login-account-2fa.svg)
 
 3. Create savings account
   
@@ -166,6 +169,7 @@ Client:
 
 Prerequisites: the user must be logged in
 
+![](./puml/svg/create-savings-account-use-case/create-new-saving-account.svg)
 
 4. View account balance
 
@@ -174,6 +178,8 @@ Prerequisites: the user must be logged in
 * frontend displays the balance and the transactions  
 
 Prerequisites: the user must be logged in
+
+![](./puml/svg/view-account-balance-use-case/view-account-balance.svg)
 
 5. Make transactions between accounts
 
@@ -188,6 +194,8 @@ Prerequisites: the user must be logged in
 * user is redirected to the transactions page where he can see the new transaction
 
 Prerequisites: the user must be logged in
+
+![](./puml/svg/create-transaction-use-case/create-new-saving-account.svg)
 
 6. Pay services
 
@@ -221,6 +229,9 @@ Administrator:
 
 Preconditions: the user must be logged in and must have administrator rights
 
+![](./puml/svg/admin-manage-accounts-use-case.svg/admin-manage-accounts.svg)
+
+
 2. Manage user cards
 
 * the admin navigates to the users cards page
@@ -241,7 +252,7 @@ Preconditions: the user must be logged in and must have administrator rights
 
 Preconditions: the user must be logged in and must have administrator rights
 
-1. Manage services
+4. Manage services
 
 * the admin navigates to the services page
 * he can search for a service by name or by id or by provider
