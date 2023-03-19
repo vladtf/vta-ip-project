@@ -32,8 +32,6 @@ autentificarea securizata a unui utilizator, gestionarea contului bancar, a card
 
 ### Domeniul/contextul de utilizare al sistemului
 
-TODO
-
 ### Lista de definiții si abrevieri
 
 TODO
