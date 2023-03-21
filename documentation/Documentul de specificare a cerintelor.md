@@ -307,4 +307,4 @@ Administrators use cases:
 
 #### Diagrama de contex
 
-![](./puml/svg/context-diagram.svg)
+![](./puml/svg/context-diagram-fixed.svg)
