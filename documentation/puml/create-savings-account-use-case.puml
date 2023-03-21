@@ -1,0 +1,16 @@
+@startuml create-new-saving-account
+
+Client -> Frontend: get accounts page
+activate Frontend
+Frontend -> Backend: HTTP request (GET /accounts)
+activate Backend
+Backend -> Database: get accounts
+activate Database
+Database --> Backend: accounts
+deactivate Database
+Backend --> Frontend: HTTP response (200)
+deactivate Backend
+Frontend --> Client: accounts page (HTML)
+deactivate Frontend
+
+@enduml

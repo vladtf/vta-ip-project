@@ -1,0 +1,24 @@
+@startuml create-new-account-use-case
+
+Client -> Frontend: get registration form
+activate Frontend
+Frontend --> Client: registration form (HTML)
+deactivate Frontend
+
+Client -> Frontend: enter data and click register
+activate Frontend
+Frontend -> Backend: HTTP request (POST /register)
+activate Backend
+Backend -> Database: create new account
+activate Database
+Database --> Backend: success
+deactivate Database
+Backend --> Frontend: HTTP response (200)
+deactivate Backend
+Frontend --> Client: success message (HTML)
+deactivate Frontend
+Frontend -> Client: redirect to login page
+activate Client
+Client --> Frontend: HTTP request (GET /login)
+
+@enduml

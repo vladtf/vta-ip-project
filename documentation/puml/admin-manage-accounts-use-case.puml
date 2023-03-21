@@ -1,0 +1,47 @@
+@startuml admin-manage-accounts
+
+Admin -> Frontend: get users accounts page
+activate Frontend
+Frontend -> Backend: HTTP request (GET /users)
+activate Backend
+Backend -> Database: get users
+activate Database
+Database --> Backend: users
+deactivate Database
+Backend --> Frontend: HTTP response (200) with users
+deactivate Backend
+Frontend --> Admin: users accounts page (HTML) with users
+deactivate Frontend
+Admin -> Frontend: search for user
+activate Frontend
+Frontend -> Backend: HTTP request (GET /users?search=...)
+activate Backend
+Backend -> Frontend: HTTP response (200) with users
+deactivate Backend
+Frontend --> Admin: users accounts page (HTML) with found users
+deactivate Frontend
+Admin -> Frontend: click on edit button
+activate Frontend
+Frontend -> Admin: display edit form
+deactivate Frontend
+
+Admin -> Frontend: edit user data
+activate Frontend
+Frontend -> Frontend: validate user data
+Frontend --> Admin: confirm page
+deactivate Frontend
+Admin -> Frontend: click on save button
+activate Frontend
+Frontend -> Backend: HTTP request (PUT /users/:id)
+activate Backend
+Backend -> Database: update user
+activate Database
+Database --> Backend: user
+deactivate Database
+Backend --> Frontend: HTTP response (200) with user
+deactivate Backend
+Frontend --> Admin: users accounts page (HTML) with updated user
+deactivate Frontend
+
+
+@enduml

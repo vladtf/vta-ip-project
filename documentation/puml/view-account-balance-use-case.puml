@@ -1,0 +1,20 @@
+@startuml view-account-balance
+
+Client -> Frontend: get balance page
+activate Frontend
+Frontend -> Backend: HTTP request (GET /balance)
+activate Backend
+Backend -> Database: get balance of user
+activate Database
+Database --> Backend: balance
+deactivate Database
+Backend -> Database: get transactions of user
+activate Database
+Database --> Backend: account transactions and balance
+deactivate Database
+Backend --> Frontend: HTTP response (200) with balance and transactions
+deactivate Backend
+Frontend --> Client: balance page (HTML) with balance and transactions
+deactivate Frontend
+
+@enduml
