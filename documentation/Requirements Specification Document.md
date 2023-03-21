@@ -10,7 +10,7 @@
   - [Introduction](#introduction)
     - [Purpose of the document](#purpose-of-the-document)
     - [The context of system usage](#the-context-of-system-usage)
-    - [Lista de definiții si abrevieri](#lista-de-definiții-si-abrevieri)
+    - [List of definitions and abbreviations](#list-of-definitions-and-abbreviations)
   - [General Description](#general-description)
     - [Short description of the application](#short-description-of-the-application)
     - [Motivation](#motivation)
@@ -36,9 +36,22 @@ The purpose of this document is to describe the requirements of an online bankin
 
 The context of system usage of an online banking management system would include the various situations and environments in which the system is used by customers to manage their banking activities online. This may include scenarios such as logging in to check account balances, transferring funds between accounts, paying bills, or setting up automatic payments.
 
-### Lista de definiții si abrevieri
+### List of definitions and abbreviations
 
-TODO
+- **Administrator** - a person who manages the system
+- **Client** - a person who uses the system
+- **Account** - a bank account
+- **Card** - a bank card
+- **Transaction** - a bank transaction
+- **Balance** - a bank balance
+
+- **Docker** - a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers
+- **React** - a JavaScript library for building user interfaces
+- **Spring Boot** - a framework to ease the bootstrapping and development of new Spring Applications
+
+- **AWS** - Amazon Web Services
+- **ECR** - Elastic Container Registry
+- **ECS** - Elastic Container Service
 
 ## General Description
 
@@ -275,27 +288,34 @@ Preconditions: the user must be logged in and must have administrator rights
 #### Describe of use cases
 
 Clients use cases:
+
 - create new account:
-    - the user will fill personal data in the registration form(username, password, email etc)
+
+  - the user will fill personal data in the registration form(username, password, email etc)
 
 - login:
-   - the user can authenticate in its personal account using their credentials. Authentification proccess is a double factor one.
+
+  - the user can authenticate in its personal account using their credentials. Authentification proccess is a double factor one.
 
 - create a savings account:
-   - the user can create a separated account, within a main one, for savings
+  - the user can create a separated account, within a main one, for savings
 - view account balance:
+
   - the user can see the account details
 
 - make transactions between accounts:
+
   - the user can transfer money in between different accounts
 
 - pay services:
+
   - the user can view and pay different services(water, electrivity etc) within the account
 
 - view account state:
   - the user can print account statement
 
 Administrators use cases:
+
 - manage user accounts:
   - the administrator can edit users information
 - manage user cards:
