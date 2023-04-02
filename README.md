@@ -1,7 +1,7 @@
-# PProgram Engineering Project - VTA
+# Program Engineering Project - VTA
 
 ## Table of Contents
-- [PProgram Engineering Project - VTA](#pprogram-engineering-project---vta)
+- [Program Engineering Project - VTA](#program-engineering-project---vta)
   - [Table of Contents](#table-of-contents)
   - [Documentation](#documentation)
 

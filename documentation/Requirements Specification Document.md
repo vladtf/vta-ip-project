@@ -2,11 +2,11 @@
 
 # Requirements Specification Document
 
-## CUPRINS
+## Table of Contents
 
 - [ONLINE BANKING PLATFORM](#online-banking-platform)
 - [Requirements Specification Document](#requirements-specification-document)
-  - [CUPRINS](#cuprins)
+  - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
     - [Purpose of the document](#purpose-of-the-document)
     - [The context of system usage](#the-context-of-system-usage)
@@ -24,7 +24,7 @@
     - [System models](#system-models)
       - [Actors and use cases through which they interact](#actors-and-use-cases-through-which-they-interact)
       - [Describe of use cases](#describe-of-use-cases)
-      - [Diagrama de contex](#diagrama-de-contex)
+      - [Context diagram](#context-diagram)
 
 ## Introduction
 
@@ -325,6 +325,6 @@ Administrators use cases:
 - manage services:
   - the administrator can edit services information
 
-#### Diagrama de contex
+#### Context diagram
 
 ![](./puml/svg/context-diagram-fixed.svg)
