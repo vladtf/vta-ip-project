@@ -4,4 +4,5 @@ Proiectul la cursul de Ingineria Programelor.
 
 ## Documentatie
 
-* [Documentul de specificare a cerintelor](./documentation/Documentul%20de%20specificare%20a%20cerintelor.md)
+* [Requirements Specification Document](documentation/Requirements%20Specification%20Document.md)
+* [Arhitectural Design Document](documentation/Arhitectural%20Design%20Document.md)
