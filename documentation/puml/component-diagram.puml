@@ -1,0 +1,63 @@
+@startuml
+left to right direction
+
+rectangle "Frontend" as FRONTEND {
+  component "Backend Client" as BACKEND_CLIENT
+  rectangle "Customer" as CUSTOMER {
+    component "Register Page" as CUSTOMER_REGISTER_PAGE
+    component "Login Page" as CUSTOMER_LOGIN_PAGE
+    component "Home Page" as CUSTOMER_HOME_PAGE
+    component "Accounts Page" as CUSTOMER_ACCOUNTS_PAGE
+    component "Transaction Page" as CUSTOMER_TRANSACTION_PAGE
+    component "Balance Page" as CUSTOMER_BALANCE_PAGE
+  }
+  rectangle "Administrator" as ADMIN {
+    component "Admin Dashboard" as ADMIN_DASHBOARD
+  }
+}
+
+rectangle "SMTP Server" as SMTP_SERVER {
+  component "SMTP Service" as SMTP_SERVICE
+}
+
+rectangle "Backend" as BACKEND {
+  component "Rest API" as REST_API
+  interface "Security Layer" as SECURITY_LAYER
+  component "Business Logic" as BIZ_LOGIC
+  interface "Data Access" as DATA_ACCESS
+  component "MySQL Client" as MYSQL_CLIENT
+  component "Credentials Authentication" as CREDENTIALS_AUTH
+  component "Two-Factor Authentication" as TWO_FACTOR_AUTH
+  interface "Transaction" as TRANSACTION
+  component "Direct Transaction" as DIRECT_TRANSACTION
+  component "Service Transaction" as SERVICE_TRANSACTION
+}
+
+database "Database" as DB {
+}
+
+BACKEND_CLIENT --> REST_API
+REST_API --> BIZ_LOGIC
+BIZ_LOGIC --> SECURITY_LAYER
+SECURITY_LAYER <|-down- CREDENTIALS_AUTH
+SECURITY_LAYER <|-down- TWO_FACTOR_AUTH
+CREDENTIALS_AUTH --> DATA_ACCESS
+TWO_FACTOR_AUTH --> DATA_ACCESS
+BIZ_LOGIC --> DATA_ACCESS
+DATA_ACCESS <|-down- MYSQL_CLIENT
+BIZ_LOGIC --> SMTP_SERVICE
+TRANSACTION --> DATA_ACCESS
+DIRECT_TRANSACTION --> TRANSACTION
+SERVICE_TRANSACTION --> TRANSACTION
+
+CUSTOMER_REGISTER_PAGE --> BACKEND_CLIENT
+CUSTOMER_LOGIN_PAGE --> BACKEND_CLIENT
+CUSTOMER_HOME_PAGE --> BACKEND_CLIENT
+CUSTOMER_ACCOUNTS_PAGE --> BACKEND_CLIENT
+CUSTOMER_TRANSACTION_PAGE --> BACKEND_CLIENT
+CUSTOMER_BALANCE_PAGE --> BACKEND_CLIENT
+
+ADMIN_DASHBOARD --> BACKEND_CLIENT
+
+MYSQL_CLIENT --> DB
+@enduml
