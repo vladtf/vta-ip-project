@@ -1,0 +1,77 @@
+@startuml database-schema
+class Bank {
+  +int bank_id
+  +string name
+  +List<User> get_users()
+  +void add_user(User user)
+}
+
+class Account {
+  +int account_id
+  +string type
+  +float balance
+  +string customer_name
+  +void deposit(float amount)
+  +void withdraw(float amount)
+  +List<Transaction> get_transactions()
+  +List<Card> get_cards()
+  +List<User> get_users()
+}
+
+class Transaction {
+  +int transaction_id
+  +float amount
+  +string type
+  +int account_id
+}
+
+class Card {
+  +int card_id
+  +string type
+  +string number
+  +string cvv
+  +string expiry_date
+}
+
+class User {
+  +int user_id
+  +string name
+  +string email
+  +string phone
+  +string address
+  +string password
+  +string role
+  +List<Token> get_tokens()
+  +List<Account> get_accounts()
+  +Bank bank
+}
+
+class AccountUser {
+  +int account_id
+  +int user_id
+  +string type
+}
+
+note left: Used to link a single account\n to multiple users (family plan) 
+
+class Token {
+  +int token_id
+  +string access_token
+  +int user_id
+  +string device
+  +DateTime expiry_date
+  +boolean is_expired()
+}
+
+Bank --> User
+User --> Bank
+User --> Token
+User --> Account
+Account --o AccountUser
+User --o AccountUser
+Account --> Transaction
+Account --> Card
+Card --o Account
+Token --o User
+
+@enduml

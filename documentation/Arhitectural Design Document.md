@@ -43,7 +43,13 @@
 ![](materials/deployment-diagram.jpeg)
 
 ### 3.4 Persistent Data Management
-(files, the database system used, conceptual database schema)
+
+For persistent data management, we will use a relational database, MySQL.
+It will be running on an EC2 instance, and will be accessed by the application through a JDBC driver.
+The backend application will access the database through the Hibernate ORM framework.
+
+The database schema is defined in the following diagram:
+![](puml/svg/database-schema.svg)
 
 ### 3.5 User Access Control to the System
 ### 3.6 Global Control Flow
