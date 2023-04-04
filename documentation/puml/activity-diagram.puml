@@ -1,0 +1,64 @@
+@startuml activity-diagram
+start
+
+:Enter credentials;
+if (Credentials are valid) then (yes)
+    :2FA confirmation;
+    if(User confirmed) then (yes)
+        if(User is not administrator) then (yes)
+            :Display account information;
+            if (Perform transaction?) then (yes)
+                :Select transaction type;
+                if (Transaction is to another account) then (yes)
+                    :Enter account number;
+                    :Enter amount;
+                    :Confirm transaction;
+                    if (Transaction is successful) then (yes)
+                        #palegreen:Display confirmation message;
+                        :Display updated balance;
+                    else (no)
+                        #pink:Display error message;
+                    endif
+                elseif (Transaction is to a merchant) then (yes)
+                    :Select merchant;
+                    :Enter amount;
+                    :Confirm transaction;
+                    if (Transaction is successful) then (yes)
+                        #palegreen:Display confirmation message;
+                        :Display updated balance;
+                    else (no)
+                        #pink:Display error message;
+                    endif
+                endif
+            elseif (Create an savings account?) then (yes)
+                :Enter savings account name;
+                :Confirm savings account creation;
+                if (Savings account is created) then (yes)
+                    #palegreen:Display updated list of savings accounts;
+                else (no)
+                    #pink:Display error message;
+                endif
+            elseif (View account balance?) then (yes)
+                :Display account balance;
+            elseif (View account statement?) then (yes)
+                :Display account statement;
+                if(Download statement?) then (yes)
+                    #palegreen:Download statement;
+                else (no)
+                    :Nothing happens;
+                endif
+            else (no)
+                :Nothing happens;
+            endif
+        else
+            #hotPink:Display administrator dashboard;
+        endif
+    else (no)
+        #pink:Display error message;
+    endif
+else (no)
+    #pink:Display error message;
+endif
+
+stop
+@enduml

@@ -49,9 +49,12 @@ It will be running on an EC2 instance, and will be accessed by the application t
 The backend application will access the database through the Hibernate ORM framework.
 
 The database schema is defined in the following diagram:
+
 ![](puml/svg/database-schema.svg)
 
 ### 3.5 User Access Control to the System
 ### 3.6 Global Control Flow
+![](puml/svg/activity-diagram.svg)
+
 ### 3.7 Boundary Conditions (Limit Use Cases)
 Glossary of Terms - if applicable.
