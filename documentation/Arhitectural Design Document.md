@@ -36,6 +36,30 @@
 
 ## 2. Design Objectives
 
+1. Availability
+   - The system will be available 24/7, 365 days a year.
+   - The system will be hosted on AWS
+   - The database will be hosted on an RDS instance.
+   - The system will be deployed on multiple availability zones, and will be load balanced.
+   - The system will be monitored using CloudWatch, and will be automatically scaled based on the load.
+
+2. Security
+   - The system will be secured using HTTPS.
+   - The system will be secured using JWT tokens.
+   - The system will be secured using 2FA.
+   - The system will be secured using role based access control.
+   - The system will be secured using password hashing.
+
+3. Usability
+   - The system will be easy to use.
+   - The system will be responsive.
+   - The system will be accessible from any device.
+
+4. Maintainability
+   - The system will be easy to maintain.
+   - The system will be easy to extend.
+   - The system will be easy to deploy.
+
 ## 3. Proposed Architecture
 
 ### 3.1 General Overview of the System Architecture
