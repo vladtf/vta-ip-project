@@ -25,7 +25,7 @@
 ## Table of Contents
 
 ## 1. Introduction
-  An online banking platform is a digital service provided by a financial institution that allows its customers to perform various banking transactions and activities through the internet. The primary purpose of an online banking platform is to provide convenience and accessibility to customers, allowing them to access their account information, make payments, transfer funds, and manage their finances from anywhere with an internet connection
+        An online banking platform is a digital service provided by a financial institution that allows its customers to perform various banking transactions and activities through the internet. The primary purpose of an online banking platform is to provide convenience and accessibility to customers, allowing them to access their account information, make payments, transfer funds, and manage their finances from anywhere with an internet connection
 
 ### 1.1 System Purpose
 
