@@ -30,11 +30,13 @@ An online banking platform is a digital service provided by a financial institut
 
 ### 1.1 System Purpose
 
+The system purpose is to provide customers with convenient and secure access to their banking accounts and services via the internet. It enables customers to perform various banking transactions and activities from their own devices, such as smartphones, tablets, or computers, without having to physically visit a bank branch.
+
 ### 1.3 Definitions, Acronyms
 
 ### 1.4 Reference Documents
 
-(e.g. Requirements Specification Document, other systems, etc.)
+Throughout the rest of this document, we will make refernces to the previous specification document.
 
 ## 2. Design Objectives
 
@@ -67,6 +69,9 @@ An online banking platform is a digital service provided by a financial institut
 ### 3.1 General Overview of the System Architecture
 
 (including a brief presentation of the functionalities allocated to each subsystem)
+
+1. Administrator subsystem
+2. User subsystem
 
 ### 3.2 Subsystem Decomposition and Responsibilities
 
