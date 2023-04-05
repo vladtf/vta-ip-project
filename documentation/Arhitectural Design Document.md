@@ -1,5 +1,7 @@
 # Arhitectural Design Document
+
 ## Table of Contents
+
 - [Arhitectural Design Document](#arhitectural-design-document)
   - [Table of Contents](#table-of-contents)
 - [The Architectural Design Document](#the-architectural-design-document)
@@ -16,24 +18,32 @@
     - [3.4 Persistent Data Management](#34-persistent-data-management)
     - [3.5 User Access Control to the System](#35-user-access-control-to-the-system)
     - [3.6 Global Control Flow](#36-global-control-flow)
-    - [3.7 Boundary Conditions (Limit Use Cases)](#37-boundary-conditions-limit-use-cases)
+    - [3.7 Boundary Conditions](#37-boundary-conditions)
 
 # The Architectural Design Document
 
 ## Table of Contents
 
 ## 1. Introduction
+
 ### 1.1 System Purpose
+
 ### 1.3 Definitions, Acronyms
+
 ### 1.4 Reference Documents
+
 (e.g. Requirements Specification Document, other systems, etc.)
 
 ## 2. Design Objectives
+
 ## 3. Proposed Architecture
+
 ### 3.1 General Overview of the System Architecture
+
 (including a brief presentation of the functionalities allocated to each subsystem)
 
 ### 3.2 Subsystem Decomposition and Responsibilities
+
 (component diagrams, interface descriptions, packages - the elements that belong to a subsystem)
 
 ![](materials/component-diagram.jpeg)
@@ -53,8 +63,70 @@ The database schema is defined in the following diagram:
 ![](puml/svg/database-schema.svg)
 
 ### 3.5 User Access Control to the System
+
 ### 3.6 Global Control Flow
+
 ![](puml/svg/activity-diagram.svg)
 
-### 3.7 Boundary Conditions (Limit Use Cases)
-Glossary of Terms - if applicable.
+### 3.7 Boundary Conditions
+
+Global:
+
+1. No internet connection
+
+- The application will not be able to access the database, and will not be able to perform any operations with the server.
+- React will display an error message, but will allow the user to continue using the application with the data that is already loaded.
+
+2. User is not logged in:
+
+- The user will be redirected to the login page.
+
+3. User is not allowed to perform an action:
+
+- The user will be redirected to the home page.
+
+Create a new user:
+
+1. The user already exists:
+
+   - No new user will be created, and the user will be notified that the username is already taken.
+
+2. Password is not strong enough:
+
+   - Frontend won't allow the user to submit the form, and will display a message with the requirements for the password.
+
+3. Passwords don't match:
+
+   - Frontend won't allow the user to submit the form, and will display a message that the passwords don't match.
+
+4. Email is not valid:
+   - Frontend won't allow the user to submit the form, and will display a message that the email is not valid.
+
+Authenticate a user:
+
+1. User doesn't exist:
+
+   - The user will be notified that the username or password is incorrect. (The user will not be notified that the username doesn't exist, to prevent brute force attacks.)
+
+2. Password is incorrect:
+
+   - The user will be notified that the username or password is incorrect.
+
+3. User is not verified:
+   - The user will be notified that the account is not verified, and will be redirected to the verification page.
+
+Perform a transaction:
+
+1. The user doesn't have enough money:
+
+   - The transaction will not be performed, and the user will be notified that they don't have enough money.
+
+2. The destination account doesn't exist (same if the user is not verified):
+
+   - The transaction will not be performed, and the user will be notified that the destination account doesn't exist.
+
+Create a savings account:
+
+1. The user already has a savings account:
+
+   - The savings account will not be created, and the user will be notified that they already have a savings account.
