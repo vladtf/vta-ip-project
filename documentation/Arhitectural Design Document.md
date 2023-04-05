@@ -64,6 +64,35 @@ The database schema is defined in the following diagram:
 
 ### 3.5 User Access Control to the System
 
+1. Authentication
+
+   - authentication is performed in 2 steps (login and 2FA)
+   - communication between the frontend and the backend is done through REST API
+   - traffic is encrypted using HTTPS
+
+2. Authorization
+
+   - after the user is authenticated, the backend will generate a JWT token
+   - JWT will be stored in the browser's local storage and send with every request
+   - for an request to be authorized, the JWT token must be valid (not expired) and the user must have the required role
+   - roles are stored in the database, and are assigned to users
+   - JWT token expires after 72 hours (3 days)
+
+3. User data management
+
+   - user can only access their own data
+   - only admins can access other user's data
+   - admins can create, update and delete users
+   - users can only update their own data
+   - any other user specific data (transactions, savings accounts, etc.) follows the same rules as above
+
+4. Security
+
+   - passwords are hashed using BCrypt
+   - communication between the frontend and the backend is done through HTTPS
+   - JWT token has a limited lifetime
+   - JWT token stores data about the device and cannot be used on another device
+
 ### 3.6 Global Control Flow
 
 ![](puml/svg/activity-diagram.svg)
