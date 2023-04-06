@@ -4,8 +4,6 @@
 
 - [Arhitectural Design Document](#arhitectural-design-document)
   - [Table of Contents](#table-of-contents)
-- [The Architectural Design Document](#the-architectural-design-document)
-  - [Table of Contents](#table-of-contents-1)
   - [1. Introduction](#1-introduction)
     - [1.1 System Purpose](#11-system-purpose)
     - [1.3 Definitions, Acronyms](#13-definitions-acronyms)
@@ -20,10 +18,6 @@
     - [3.6 Global Control Flow](#36-global-control-flow)
     - [3.7 Boundary Conditions](#37-boundary-conditions)
   - [4. Planification](#4-planification)
-
-# The Architectural Design Document
-
-## Table of Contents
 
 ## 1. Introduction
 
