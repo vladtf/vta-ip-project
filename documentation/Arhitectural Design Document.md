@@ -77,16 +77,12 @@ TODO
 
 ### 3.2 Subsystem Decomposition and Responsibilities
 
-(component diagrams, interface descriptions, packages - the elements that belong to a subsystem)
 
-TODO
+![](puml/svg/component-diagram.svg)
 
-
-![](materials/component-diagram.jpeg)
 
 ### 3.3 Subsystem Distribution on Hardware/Software Platforms (distribution diagram)
 
-TODO
 
 ![](puml/svg/deployment-diagram.svg)
 
