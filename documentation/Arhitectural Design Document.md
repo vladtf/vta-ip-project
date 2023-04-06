@@ -34,9 +34,11 @@ The system purpose is to provide customers with convenient and secure access to 
 
 ### 1.3 Definitions, Acronyms
 
+TODO
+
 ### 1.4 Reference Documents
 
-Throughout the rest of this document, we will make refernces to the previous specification document.
+- [Requirements Specification Document](Requirements%20Specification%20Document.md)
 
 ## 2. Design Objectives
 
@@ -77,9 +79,14 @@ Throughout the rest of this document, we will make refernces to the previous spe
 
 (component diagrams, interface descriptions, packages - the elements that belong to a subsystem)
 
+TODO
+
+
 ![](materials/component-diagram.jpeg)
 
 ### 3.3 Subsystem Distribution on Hardware/Software Platforms (distribution diagram)
+
+TODO
 
 ![](puml/svg/deployment-diagram.svg)
 
