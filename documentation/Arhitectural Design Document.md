@@ -129,9 +129,17 @@ TODO
    - Logs the data access operations.
 
 5. **SMTP**
-
+   - Gets the email address of the user from the database.
+   - Gets request from the business logic layer.
+   - Responsible for sending emails to the user.
+   
 6. **Security**
-
+   - Responsible for authentication.
+   - Responsible for authorization.
+   - Responsible for 2FA.
+   - Responsible for password hashing.
+   - Confirms to the backend client that the user is authorized to perform the requested action.
+  
 7. **Database**
    - Responsible for storing the data.
    - Partially responsible for data validation.
