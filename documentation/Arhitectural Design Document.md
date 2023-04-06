@@ -125,10 +125,15 @@ TODO
    - Receives requests from the business logic layer and retrieves the data from the database.
    - Updates the database with the data received from the business logic layer.
    - Logs the data access operations.
-   
+
 5. **SMTP**
+
 6. **Security**
+
 7. **Database**
+   - Responsible for storing the data.
+   - Partially responsible for data validation.
+   - Role based access control.
 
 ### 3.2 Subsystem Decomposition and Responsibilities
 
