@@ -35,7 +35,39 @@ The system purpose is to provide customers with convenient and secure access to 
 
 ### 1.3 Definitions, Acronyms
 
-TODO
+
+**HTTPS** - Hypertext Transfer Protocol Secure (https) is a combination of the Hypertext Transfer Protocol (HTTP) with the Secure Socket Layer (SSL)/Transport Layer Security (TLS) protocol. TLS is an authentication and security protocol widely implemented in browsers and Web servers.  
+
+**JWT TOKEN** - An open industry standard used to share information between two entities, usually a client (like your app's frontend) and a server (your app's backend). They contain JSON objects which have the information that needs to be shared. 
+
+**2FA** -Two-factor authentication is an identity and access management security method that requires two forms of identification to access resources and data. 
+
+**REST API**- is an API that conforms to the design principles of the REST, or representational state transfer architectural style. 
+
+**EC2** -  is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. 
+
+**JDTB**-  is an application programming interface (API) for the Java programming language, which defines how a client may access a database.
+
+**HIBERNATE** - an open source object relational mapping (ORM) tool that provides a framework to map object-oriented domain models to relational databases for web applications. Object relational mapping is based on the containerization of objects and the abstraction that provides that capacity. 
+
+**AWS** -  is a comprehensive, evolving cloud computing platform provided by Amazon that includes a mixture of infrastructure-as-a-service , platform-as-a-service  and packaged-software-as-a-service offerings. 
+
+**RDS INSTANCE** - General purpose instances offer a combination of computing, memory, and networking resources. Memory-optimized instances are helpful for efficient performance in the case of workloads that handle huge data sets in memory. Burstable performance instances offer a baseline amount of CPU usage with the flexibility to burst CPU usage above the baseline level. 
+
+**BCRYPT** - is a password-hashing function.  
+
+**DNS** -  Domain Name System is the phonebook of the Internet. When users type domain names such as 'google.com' or 'nytimes.com' into web browsers, DNS is responsible for finding the correct IP address for those sites. 
+
+**LOAD BALANCER**- is a device that acts as a reverse proxy and distributes network or application traffic across a number of servers. Load balancers are used to increase capacity (concurrent users) and reliability of applications. 
+
+**ECS CLUSTER** - is a highly scalable, high performance container management service that supports Docker containers and allows you to easily run applications on a managed cluster of Amazon Elastic Compute Cloud (Amazon EC2) instances. 
+
+**SMTP SERVER** -  is an application that's primary purpose is to send, receive, and/or relay outgoing mail between email senders and receivers. 
+
+**MySQL Server** -  is a relational database management system (RDBMS) that supports a wide variety of transaction processing, business intelligence and analytics applications in corporate IT environments.
+
+
+
 
 ### 1.4 Reference Documents
 
@@ -73,7 +105,31 @@ TODO
 
 
 
-1. **User subsystem:**
+1. **User subsystem:**:Responsible for managing the interactions between the bank and its customers who use the online platform. The subsystem typically consists of a user interface and a set of functionalities to provide the customer with a convenient, secure and efficient banking experience. 
+
+   *Authentication*:
+
+	- users need to authenticate themselves to access their accounts, typically through a username and password and through a AWD token(2FA). 
+	- once the authentication is complete the user will get access to his account. 
+
+   *Home*:   
+	- the user will be able to select one of the following options: accounts, transactions and balance. 
+   - The “home” section practically represents a menu where the user. 
+
+   *Accounts*: 
+	- the user will be able to access the accounts that he has created, for instance: savings account, pay services account, shopping account.  
+
+
+   *Transactions*: 
+	- Users can initiate and manage bill payments, set up recurring payments, and make payments to other users or third-party accounts.  
+	- Fill the form with the required data (type of transaction, amount, destination account, etc.) 
+	- The user is redirected to the transactions page where he can see the new transaction.
+
+   *Balance*:  
+	- check amount left in any type of account.
+
+
+
 2. **Administrator subsystem**: As a privileged user, the administrator should ensure that the platform functions smoothly and securely, being able to operate in the following components: Authentication, Administration and Dashboard. 
 
       *Authentication:*
@@ -99,6 +155,7 @@ TODO
    - set of rules or constraints.
    - uses HTTP methods to define the type of operation that needs to be performed on a resource(eg. GET, POST, DELETE etc).
    - the resource is presented to the requester in a json format
+
 
 4. **Bussiness Logic**: The business logic layer is the core of the application. It contains the business logic of the application and is responsible for processing the data and returning the results to the presentation layer. It is also responsible for communicating with the data access layer to retrieve and store data.
 
