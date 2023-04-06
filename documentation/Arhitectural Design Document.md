@@ -98,7 +98,34 @@ TODO
    *Rest API:*
    - set of rules or constraints that define how data is exchanged between client and server applications.
 
-4. **Bussiness Logic**
+4. **Bussiness Logic**: The business logic layer is the core of the application. It contains the business logic of the application and is responsible for processing the data and returning the results to the presentation layer. It is also responsible for communicating with the data access layer to retrieve and store data.
+
+   *Authorization:*
+   - Receives the request from the client and checks if the user is authorized to perform the requested action.
+   - Receives credentials from the client and checks if the user can be authenticated.
+   - Receives the JWT token from the client and checks if the token is valid.
+
+   *Data Validation:*
+   - Receives data from the client and checks if the data is valid.
+   - Redirects the request to the component that will process the data.
+
+   *Transaction:*
+   - Check the balance of the user's account and if the user has enough money to make the transaction.
+   - Update the balance of the user's account in the database.
+
+   *User Data:*
+   - Receives updates on the user's data from the client and updates the user's data in the database.
+   - User data includes managing of the user's profile, the user's accounts, etc.
+  
+   *Bank Data:*
+   - Receives updates on the bank's data from the client and updates the bank's data in the database.
+   - Bank data includes managing of the savings accounts, the credit cards, etc.
+
+   *Data Access:*
+   - Receives requests from the business logic layer and retrieves the data from the database.
+   - Updates the database with the data received from the business logic layer.
+   - Logs the data access operations.
+   
 5. **SMTP**
 6. **Security**
 7. **Database**
