@@ -71,10 +71,27 @@ TODO
 
 ### 3.1 General Overview of the System Architecture
 
-(including a brief presentation of the functionalities allocated to each subsystem)
 
-1. Administrator subsystem
-2. User subsystem
+
+1. User subsystem
+2. Administrator subsystem: As a privileged user, the administrator should ensure that the platform functions smoothly and securely, being able to operate in the following components: Authentication, Administration and Dashboard. 
+
+Authentication:
+-the adminsitrator should authenticate using its credentials.
+-after a successful login, the administrator can view its account.
+
+Administration:
+-The administrator should review and administer user requests , such as password reset requests, account activation requests, or any other requests that require administrative approval.
+-It has the right to change, modify or delete information from the system.
+
+Dashboard:
+-The administrator should be able to view its accont info.
+
+3. Backend Client
+4. Bussiness Logic
+5. SMTP
+6. Security 
+7. Database
 
 ### 3.2 Subsystem Decomposition and Responsibilities
 
