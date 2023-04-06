@@ -19,6 +19,7 @@
     - [3.5 User Access Control to the System](#35-user-access-control-to-the-system)
     - [3.6 Global Control Flow](#36-global-control-flow)
     - [3.7 Boundary Conditions](#37-boundary-conditions)
+  - [4. Planification](#4-planification)
 
 # The Architectural Design Document
 
@@ -193,3 +194,10 @@ Create a savings account:
 1. The user already has a savings account:
 
    - The savings account will not be created, and the user will be notified that they already have a savings account.
+
+## 4. Planification
+
+Dashboard: https://github.com/users/vladtf/projects/1/views/1?sortedBy%5Bdirection%5D=asc&sortedBy%5BcolumnId%5D=38728626
+
+Table:
+![](materials/planification-table.jpeg)
