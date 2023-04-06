@@ -93,10 +93,12 @@ TODO
       - The administrator should be able to view its accont info.
 
 
-3. **Backend Client**: Abstarction layer between the User and the Administrator
+3. **Backend Client**: Abstraction layer between the User and the Administrator used for data exchange between the client and the server applications.
 
    *Rest API:*
-   - set of rules or constraints that define how data is exchanged between client and server applications.
+   - set of rules or constraints.
+   - uses HTTP methods to define the type of operation that needs to be performed on a resource(eg. GET, POST, DELETE etc).
+   - the resource is presented to the requester in a json format
 
 4. **Bussiness Logic**: The business logic layer is the core of the application. It contains the business logic of the application and is responsible for processing the data and returning the results to the presentation layer. It is also responsible for communicating with the data access layer to retrieve and store data.
 
