@@ -81,7 +81,7 @@ Throughout the rest of this document, we will make refernces to the previous spe
 
 ### 3.3 Subsystem Distribution on Hardware/Software Platforms (distribution diagram)
 
-![](materials/deployment-diagram.jpeg)
+![](puml/svg/deployment-diagram.svg)
 
 ### 3.4 Persistent Data Management
 
