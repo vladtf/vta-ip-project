@@ -12,11 +12,12 @@
   - [3. Proposed Architecture](#3-proposed-architecture)
     - [3.1 General Overview of the System Architecture](#31-general-overview-of-the-system-architecture)
     - [3.2 Subsystem Decomposition and Responsibilities](#32-subsystem-decomposition-and-responsibilities)
-    - [3.3 Subsystem Distribution on Hardware/Software Platforms (distribution diagram)](#33-subsystem-distribution-on-hardwaresoftware-platforms-distribution-diagram)
-    - [3.4 Persistent Data Management](#34-persistent-data-management)
-    - [3.5 User Access Control to the System](#35-user-access-control-to-the-system)
-    - [3.6 Global Control Flow](#36-global-control-flow)
-    - [3.7 Boundary Conditions](#37-boundary-conditions)
+    - [3.3 Packaging](#33-packaging)
+    - [3.4 Subsystem Distribution on Hardware/Software Platforms](#34-subsystem-distribution-on-hardwaresoftware-platforms)
+    - [3.5 Persistent Data Management](#35-persistent-data-management)
+    - [3.6 User Access Control to the System](#36-user-access-control-to-the-system)
+    - [3.7 Global Control Flow](#37-global-control-flow)
+    - [3.8 Boundary Conditions](#38-boundary-conditions)
   - [4. Planification](#4-planification)
 
 ## 1. Introduction
@@ -205,11 +206,15 @@ It enables customers to perform various banking transactions and activities from
 
 ![](puml/svg/component-diagram.svg)
 
-### 3.3 Subsystem Distribution on Hardware/Software Platforms (distribution diagram)
+### 3.3 Packaging
+
+![](puml/svg/package-diagram.svg)
+
+### 3.4 Subsystem Distribution on Hardware/Software Platforms
 
 ![](puml/svg/deployment-diagram.svg)
 
-### 3.4 Persistent Data Management
+### 3.5 Persistent Data Management
 
 For persistent data management, we will use a relational database, MySQL.
 It will be running on an EC2 instance, and will be accessed by the application through a JDBC driver.
@@ -219,7 +224,7 @@ The database schema is defined in the following diagram:
 
 ![](puml/svg/database-schema.svg)
 
-### 3.5 User Access Control to the System
+### 3.6 User Access Control to the System
 
 1. Authentication
 
@@ -250,11 +255,11 @@ The database schema is defined in the following diagram:
    - JWT token has a limited lifetime
    - JWT token stores data about the device and cannot be used on another device
 
-### 3.6 Global Control Flow
+### 3.7 Global Control Flow
 
 ![](puml/svg/activity-diagram.svg)
 
-### 3.7 Boundary Conditions
+### 3.8 Boundary Conditions
 
 Global:
 

@@ -1,0 +1,100 @@
+@startuml package-diagram
+left to right direction
+
+package "Frontend" {
+
+
+    package "Clients" {
+        class BackendClient
+    }
+
+
+    package "Pages" {
+        class Login
+        class Register
+        class Home
+        class AccountInfo
+        class Transaction
+        class AdminDashboard
+    }
+
+    package "Components" {
+        class Header
+        class Footer
+        class Navbar
+        class ConfirmDialog
+        class Button
+        class Input
+    }
+
+    package "Store" {
+        class LocalStorage
+    }
+
+}
+
+
+package "Backend" {
+    package "Views" {
+        class AuthenticationView
+        class TransactionView
+        class UserView
+        class AdminView
+    }
+
+    package "Controllers" {
+        class AuthenticationController
+        class TransactionController
+        class UserController
+        class AdminController
+    }
+
+    package "Models" {
+        class BankModel
+        class UserModel
+        class TransactionModel
+        class TokenModel
+        class AccountModel
+        class CardModel
+    }
+
+    package "Services"{
+        class 2FAService
+        class SMTPEmailService
+    }
+}
+
+package "MySqlDao" {
+    package "Entities" {
+        class BankEntity
+        class UserEntity
+        class TransactionEntity
+        class TokenEntity
+        class AccountEntity
+        class CardEntity
+    }
+
+    package "Repositories" {
+        class BankRepository
+        class UserRepository
+        class TransactionRepository
+        class TokenRepository
+        class AccountRepository
+        class CardRepository
+    }
+}
+
+"Frontend" -down-> "Backend"
+"Backend" -down-> "MySqlDao"
+
+"Pages" --> "Components"
+"Components" --> "Store"
+"Components" --> "Clients"
+
+"Views" --> "Controllers"
+"Controllers" --> "Models"
+"Controllers" --> "Services"
+
+"Repositories" --> "Entities"
+
+@enduml
