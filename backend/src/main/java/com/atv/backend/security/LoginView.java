@@ -17,7 +17,7 @@ public class LoginView {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginForm loginForm) {
-        if (StringUtils.isNotBlank(loginForm.username()) && StringUtils.isNotBlank(loginForm.password())) {
+        if (Validator.validateUsername(loginForm.username()) && Validator.validatePassword(loginForm.password())) {
             loggedUsers.add(loginForm.getUsername());
             return "success";
         }
