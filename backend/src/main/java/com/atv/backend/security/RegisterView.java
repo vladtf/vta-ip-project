@@ -2,23 +2,20 @@ package com.atv.backend.security;
 
 import com.atv.backend.providers.UserProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/register")
 public class RegisterView {
 
 
     // TODO: map
     // private static LinkedList<String> registeredUsers = new LinkedList<>();
-    private Map<String, String> registeredUsers =  new HashMap<>(); ;
+    private Map<String, String> registeredUsers = new HashMap<>();
 
 
     private final UserProvider userProvider;
@@ -29,13 +26,11 @@ public class RegisterView {
     }
 
 
-
-    @PostMapping("/register")
+    @PostMapping("")
     public String register(@RequestBody RegisterForm registerForm) {
-
         if (Validator.validateUsername(registerForm.username()) && Validator.validatePassword(registerForm.password())
-                &&Validator.validateEmail(registerForm.email()) && Validator.validatePhoneNumber(registerForm.phoneNumber())) {
-            registeredUsers.add(registerForm.getUsername());
+                && Validator.validateEmail(registerForm.email()) && Validator.validatePhoneNumber(registerForm.phoneNumber())) {
+            userProvider.addRegisteredUser(registerForm.getUsername());
             return "success";
         }
         return "error";
@@ -47,9 +42,9 @@ public class RegisterView {
     }
 
     // Getter for registered users LinkedList
-    @GetMapping("/registeredUsers")
-    public LinkedList<String> getRegisteredUsers() {
-        return registeredUsers;
+    @GetMapping("/users")
+    public List<String> getRegisteredUsers() {
+        return userProvider.getRegisteredUsers();
     }
 
 }

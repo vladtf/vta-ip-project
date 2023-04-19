@@ -1,14 +1,15 @@
 package com.atv.backend.security;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class Validator {
 
-    private static final int MIN_ALLOWED_PASSWORD=10;
-    private static final int MAX_ALLOWED_PASSWORD=16;
-    private static final int MIN_ALLOWED_USERNAME=5;
-    private static final int MAX_ALLOWED_USERNAME=20;
+    private static final int MIN_ALLOWED_PASSWORD = 10;
+    private static final int MAX_ALLOWED_PASSWORD = 16;
+    private static final int MIN_ALLOWED_USERNAME = 5;
+    private static final int MAX_ALLOWED_USERNAME = 20;
 
 
     public static boolean validateUsername(String username) {
@@ -32,7 +33,7 @@ public class Validator {
         }
         return true;
     }
-    
+
     public static boolean validatePassword(String password) {
 
         // First check:null/ empty
@@ -69,5 +70,5 @@ public class Validator {
         Matcher matcher = regexPattern.matcher(phoneNumber);
         return matcher.matches();
     }
-    
+
 }

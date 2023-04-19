@@ -2,13 +2,13 @@ package com.atv.backend.security;
 
 import com.atv.backend.providers.UserProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
+@RequestMapping("/login")
 public class LoginView {
 
 
@@ -19,10 +19,10 @@ public class LoginView {
         this.userProvider = userProvider;
     }
 
-    @PostMapping("/login")
+    @PostMapping("")
     public String login(@RequestBody LoginForm loginForm) {
         if (Validator.validateUsername(loginForm.username()) && Validator.validatePassword(loginForm.password())) {
-            loggedUsers.add(loginForm.getUsername());
+            userProvider.addRegisteredUser(loginForm.getUsername());
             return "success";
         }
         return "error";
@@ -34,7 +34,7 @@ public class LoginView {
     }
 
     // Getter for loggedUsers LinkedList
-    @GetMapping("/loggedUsers")
+    @GetMapping("/users")
     public List<String> getLoggedUsers() {
         return userProvider.getRegisteredUsers();
     }
