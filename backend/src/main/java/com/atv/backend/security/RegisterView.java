@@ -1,12 +1,13 @@
 package com.atv.backend.security;
 
-import io.micrometer.common.util.StringUtils;
+import com.atv.backend.providers.UserProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +15,12 @@ import java.util.regex.Pattern;
 @RestController
 public class RegisterView {
 
-    // LinkedList to store logged users
-    private static LinkedList<String> registeredUsers = new LinkedList<>();
+    private final UserProvider userProvider;
+
+    @Autowired
+    public RegisterView(UserProvider userProvider) {
+        this.userProvider = userProvider;
+    }
 
     public static boolean validateUsername(String username) {
 
@@ -86,22 +91,20 @@ public class RegisterView {
         // registeredUsers.add(registerForm.getUsername());
 
         if (validateUsername(registerForm.username()) && validatePassword(registerForm.password())
-        &&validateEmail(registerForm.email())) {
-            registeredUsers.add(registerForm.getUsername());
+                && validateEmail(registerForm.email())) {
+            userProvider.addRegisteredUser(registerForm.username());
             return "success";
         }
-        return "error";
-    }
 
-    @GetMapping("/alive")
-    public String alive() {
-        return "alive";
+        List<String> registeredUsers = userProvider.getRegisteredUsers();
+        System.out.println(registeredUsers);
+        return "error";
     }
 
     // Getter for registered users LinkedList
     @GetMapping("/registeredUsers")
-    public LinkedList<String> getRegisteredUsers() {
-        return registeredUsers;
+    public List<String> getRegisteredUsers() {
+        return userProvider.getRegisteredUsers();
     }
 
 }
