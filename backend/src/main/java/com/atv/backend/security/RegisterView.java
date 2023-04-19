@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 @RestController
 public class RegisterView {
@@ -65,6 +68,15 @@ public class RegisterView {
         return true;
     }
 
+
+    public static boolean validateEmail(String email) {
+        String pattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+        Pattern regexPattern = Pattern.compile(pattern);
+        Matcher matcher = regexPattern.matcher(email);
+        return matcher.matches();
+    }
+
+
     @PostMapping("/register")
     public String register(@RequestBody RegisterForm registerForm) {
         // if (StringUtils.isNotBlank(registerForm.username()) &&
@@ -73,7 +85,8 @@ public class RegisterView {
         // StringUtils.isNotBlank(registerForm.phoneNumber())) {
         // registeredUsers.add(registerForm.getUsername());
 
-        if (validateUsername(registerForm.username()) && validatePassword(registerForm.password())) {
+        if (validateUsername(registerForm.username()) && validatePassword(registerForm.password())
+        &&validateEmail(registerForm.email())) {
             registeredUsers.add(registerForm.getUsername());
             return "success";
         }
