@@ -1,0 +1,77 @@
+ 
+.header{
+    background-color:royalblue; 
+    height: 15vh; 
+    position: absolute;  
+    left:10%;
+    top: 3%;  
+    height: 20vb;
+    width: 170vb; 
+    font-size: 30px; 
+    font-family: Arial; 
+    font-weight:800; 
+    border: 2px royalblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    color: white; 
+    text-align: center;  
+} 
+.navbar{ 
+    position: absolute;  
+    left:47%;
+    top: 12%;   
+    
+    
+}  
+.LoginButton{
+    color: white; 
+    position: absolute; 
+    left:300px; 
+    font-size: 20px; 
+    text-decoration: none;  
+    padding: 10px 20px;
+    margin: 10px; 
+    border: 2px darkorange;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+   
+    
+} 
+.HomeButton{
+    color: white;  
+    position: absolute; 
+    right:200px; 
+    font-size: 20px; 
+    text-decoration: none;  
+    padding: 10px 20px;
+    margin: 10px; 
+    border: 2px darkorange;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    
+} 
+.RegisterButton{
+    color: white;  
+    font-size: 20px; 
+    position: absolute; 
+    text-decoration: none;  
+    padding: 10px 20px;
+    margin: 10px; 
+    border: 2px darkorange;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   
+}  
+.RegisterButton:hover{
+    background-color: darkorange;
+} 
+
+.LoginButton:hover{
+    background-color: darkorange;
+}  
+
+.HomeButton:hover{
+    background-color: darkorange;
+}
+
+
