@@ -13,6 +13,7 @@
 
 - [Requirements Specification Document](documentation/Requirements%20Specification%20Document.md)
 - [Arhitectural Design Document](documentation/Arhitectural%20Design%20Document.md)
+- [Sprint 1 - Review](documentation/Sprint%201%20-%20Review.md)
 
 ## Local Environment
 
