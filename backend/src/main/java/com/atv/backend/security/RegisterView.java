@@ -28,6 +28,7 @@ public class RegisterView {
 
     @PostMapping("")
     public String register(@RequestBody RegisterForm registerForm) {
+
         if (Validator.validateUsername(registerForm.username()) && Validator.validatePassword(registerForm.password())
                 && Validator.validateEmail(registerForm.email()) && Validator.validatePhoneNumber(registerForm.phoneNumber())) {
             userProvider.addRegisteredUser(registerForm.getUsername());
