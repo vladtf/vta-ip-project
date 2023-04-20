@@ -1,17 +1,28 @@
 package com.atv.backend.security;
 
-import io.micrometer.common.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.atv.backend.providers.UserProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
+@RequestMapping("/login")
 public class LoginView {
-    @PostMapping("/login")
+
+
+    private final UserProvider userProvider;
+
+    @Autowired
+    public LoginView(UserProvider userProvider) {
+        this.userProvider = userProvider;
+    }
+
+    @PostMapping("")
     public String login(@RequestBody LoginForm loginForm) {
-        if (StringUtils.isNotBlank(loginForm.username()) && StringUtils.isNotBlank(loginForm.password())) {
+        if (Validator.validateUsername(loginForm.username()) && Validator.validatePassword(loginForm.password())) {
+            userProvider.addRegisteredUser(loginForm.getUsername());
             return "success";
         }
         return "error";
@@ -21,4 +32,11 @@ public class LoginView {
     public String alive() {
         return "alive";
     }
+
+    // Getter for loggedUsers LinkedList
+    @GetMapping("/users")
+    public List<String> getLoggedUsers() {
+        return userProvider.getRegisteredUsers();
+    }
+
 }

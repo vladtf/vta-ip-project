@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb
+    container_name: mariadb_container
+    # restart: always
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MARIADB_DATABASE: mydatabase
+      MARIADB_ROOT_PASSWORD: myrootpassword
+      MARIADB_USER: myuser
+      MARIADB_PASSWORD: mypassword
+      MYSQL_RANDOM_ROOT_PASSWORD: false
+
+volumes:
+  mariadb-data:
+    driver: local
