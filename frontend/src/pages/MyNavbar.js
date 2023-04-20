@@ -7,8 +7,8 @@
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-      <Nav.Link href="#registration">Registration</Nav.Link>
-      <Nav.Link href="#login">Login</Nav.Link> 
+      <Nav.Link href="registration">Registration</Nav.Link>
+      <Nav.Link href="login">Login</Nav.Link> 
       
       <NavDropdown title="Life at ATV" id="basic-nav-dropdown">
         <NavDropdown.Item href="#action/3.1">Why ATV?</NavDropdown.Item>
