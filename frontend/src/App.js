@@ -1,8 +1,10 @@
 import './App.css';
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';  
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/js/bootstrap.min.js';
 import { BrowserRouter  ,Route, Link, Routes } from 'react-router-dom'; 
 import Login from './pages/Login'; 
-import Register from './pages/Register'; 
+import Registration from './pages/Registration'; 
 
 function App() {
   const [email, setEmail] = useState('');
@@ -18,7 +20,7 @@ function App() {
       <Routes>
         {/* <Route exact path="/" component={Home} /> */}
         <Route path="/login" element={<Login/>} /> 
-        <Route path="/register" element={<Register/>} />
+        <Route path="/registration" element={<Registration/>} />
          <Route path="/*" element={<h1>Not Found</h1>} /> 
       </Routes>
 
