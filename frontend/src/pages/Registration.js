@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MyNavbar from './MyNavbar';
+import axios from 'axios';
 
 function Registration() {
  const [email, setEmail] = useState('');
@@ -13,8 +14,26 @@ function Registration() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Email:', email, 'Password:', password,'PhoneNumber',phoneNumber,'FirstName'
-    ,firstName,'LastName',lastName,'PasswordConfirmation',passwordConfirmation,'Gender',gender,'DateOfBirth',dob);
+
+    const postData = {
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+      firstName: firstName,
+      lastName: lastName,
+      username: firstName+lastName,
+    }
+
+    console.log("Sending registration data: ", postData);
+
+    axios
+      .post("http://localhost:8090/register", postData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -100,8 +119,11 @@ function Registration() {
 
         
       </form> 
-      <button style={{ marginLeft:"500px",marginBottom: "20px",marginTop:"20px",borderRadius: '10px',
-        width:"200px",height:"50px",backgroundColor:"#89CFF0",borderColor:"#89CFF0"}} type="submit">Register Now</button>
+      <input style={{ marginLeft:"500px",marginBottom: "20px",marginTop:"20px",borderRadius: '10px',
+        width:"200px",height:"50px",backgroundColor:"#89CFF0",borderColor:"#89CFF0"}} type="submit" value="Register Now" />
+
+      <button className='btn btn-primary' onClick={handleSubmit}>Register</button>
+      
       <form action="login">
         <h2 style={{color: "black",fontSize: "15px", display: "inline-block", marginLeft: "480px"}}>Already have an account? Then</h2>
         <button style={{display: "inline-block", marginLeft: "10px",border:"none",textDecoration:"underline" }}type="submit">Login</button>
