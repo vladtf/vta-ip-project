@@ -2,7 +2,7 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 const MyNavbar = () => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light p-2" expand="lg">
       <Navbar.Brand href="#home">ATV Online Banking</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

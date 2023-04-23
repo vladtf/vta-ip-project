@@ -5,6 +5,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Login from "./pages/LoginPage";
 import Registration from "./pages/Registration";
+import HomePage from "./pages/HomePage";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ function App() {
         {/* <Route exact path="/" component={Home} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/*" element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>

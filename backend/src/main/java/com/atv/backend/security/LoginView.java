@@ -1,6 +1,6 @@
 package com.atv.backend.security;
 
-import com.atv.backend.providers.UserProvider;
+import com.atv.backend.dao.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,20 +12,25 @@ import java.util.List;
 @RequestMapping("/login")
 public class LoginView {
 
-
-    private final UserProvider userProvider;
+    private final UserService userService;
 
     @Autowired
-    public LoginView(UserProvider userProvider) {
-        this.userProvider = userProvider;
+    public LoginView(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("")
     public String login(@RequestBody LoginForm loginForm) {
-        if (Validator.validateUsername(loginForm.username()) && Validator.validatePassword(loginForm.password())) {
-            userProvider.addRegisteredUser(loginForm.getUsername());
+        boolean isValid = Validator.validateEmail(loginForm.getEmail()) && Validator.validatePassword(loginForm.getPassword());
+
+        if (!isValid) {
+            return "error";
+        }
+
+        if (userService.login(loginForm)) {
             return "success";
         }
+
         return "error";
     }
 
@@ -37,7 +42,7 @@ public class LoginView {
     // Getter for loggedUsers LinkedList
     @GetMapping("/users")
     public List<String> getLoggedUsers() {
-        return userProvider.getRegisteredUsers();
+        return userService.getRegisteredUsers();
     }
 
 }

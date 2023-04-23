@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 
-    User findByName(String name);
-
     @Override
     List<User> findAll();
 
@@ -27,4 +25,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Override
     boolean existsById(Integer id);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByEmailAndPassword(String email, String password);
 }

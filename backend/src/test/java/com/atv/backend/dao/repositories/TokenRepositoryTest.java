@@ -27,7 +27,7 @@ public class TokenRepositoryTest {
 
     @Test
     public void createTokensForUser() {
-        User user1 = new User("Alice", "password", "test@email.com", "123456789", "123 Main St");
+        User user1 = new User("Alice", "lastname", "password", "test@email.com", "123456789", "123 Main St");
         userRepository.save(user1);
 
 
@@ -41,7 +41,7 @@ public class TokenRepositoryTest {
 
 
         // Get all tokens for user
-        List<Token> tokens = userRepository.findByName(user1.getName()).getTokens();
+        List<Token> tokens = userRepository.findByName(user1.getFirstName()).getTokens();
 
         assertEquals(2, tokens.size());
 
@@ -51,7 +51,7 @@ public class TokenRepositoryTest {
 
     @Test
     public void testTokeExpired() {
-        User user1 = new User("Bob", "password", "test@email.com", "123456789", "123 Main St");
+        User user1 = new User("Bob", "lastname", "password", "test@email.com", "123456789", "123 Main St");
         userRepository.save(user1);
 
         Token token = new Token("test", user1);
@@ -63,7 +63,7 @@ public class TokenRepositoryTest {
         tokenRepository.save(token);
 
 
-        List<Token> tokens = userRepository.findByName(user1.getName()).getTokens();
+        List<Token> tokens = userRepository.findByName(user1.getFirstName()).getTokens();
         assertEquals(1, tokens.size());
 
         // Check if token is expired
