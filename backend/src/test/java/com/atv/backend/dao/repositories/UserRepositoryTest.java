@@ -18,8 +18,8 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     private void setUp() {
-        User user1 = new User("Alice", "lastname", "password", "test@email.com", "123456789", "123 Main St");
-        User user2 = new User("Bob", "lastname", "password", "test2@email.com", "123456789", "123 Main St");
+        User user1 = new User("Alice", "lastname", "password", "test11@email.com", "123456789", "123 Main St");
+        User user2 = new User("Bob", "lastname", "password", "test12@email.com", "123456789", "123 Main St");
         //save user, verify has ID value after save
         assertNull(user1.getId());
         assertNull(user2.getId());//null before save
@@ -35,9 +35,9 @@ public class UserRepositoryTest {
         setUp();
 
         /*Test data retrieval*/
-        User userA = userRepository.findByName("Bob");
+        User userA = userRepository.findByEmail("test11@email.com");
         assertNotNull(userA);
-        assertEquals("Bob", userA.getFirstName());
+        assertEquals("test@email.com", userA.getEmail());
         /*Get all products, list should only have two*/
         Iterable<User> users = userRepository.findAll();
         int count = 0;
