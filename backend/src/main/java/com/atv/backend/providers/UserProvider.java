@@ -13,7 +13,6 @@ public class UserProvider {
     public List<String> getRegisteredUsers() {
         return registeredUsers;
     }
-
     public void addRegisteredUser(String username) {
         registeredUsers.add(username);
     }
