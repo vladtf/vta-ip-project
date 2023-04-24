@@ -5,6 +5,7 @@
 - [Sprint 1 - Review](#sprint-1---review)
   - [Table of Contents](#table-of-contents)
   - [Sprint 1 - Review](#sprint-1---review-1)
+  - [Sprint 1 -Screenshots](#sprint-1--screenshots)
   - [Sprint 2 - Planification](#sprint-2---planification)
 
 ## Sprint 1 - Review
@@ -14,11 +15,36 @@
 | Frontend - Init project                  | Done        |                                             | Cosmin   |
 | Backend - Init project                   | Done        |                                             | Laura    |
 | Backend - Add mock database              | Done        |                                             | Laura    |
-| Frontend - add login/register pages      | In progress | Works to do on styling the ui               | Cosmin   |
-| Backend - add login/register endpoints   | In progress | Works to do on validation                   | Laura    |
-| Frontend - call login/register endpoints | Not started | Should be done after the endpoints are done | All      |
+| Frontend - add login/register pages      | Done        | Works to do on styling the ui               | Cosmin   |
+| Backend - add login/register endpoints   | Done        | Works to do on validation                   | Laura    |
+| Frontend - call login/register endpoints | Done        | Should be done after the endpoints are done | All      |
 | Database - create scripts for schema     | Done        | Created only required tables                | Vlad     |
 | Database - deploy to docker              | Done        |                                             | Vlad     |
+
+
+## Sprint 1 -Screenshots
+- Ui View:
+
+![](./materials/ui.png)
+
+
+- Backend Hierarchy:
+  
+![](./materials/backend-hierarchy.png)
+
+
+
+- Frontend Hierarchy:
+  
+![](./materials/frontend-hierarchy.png)
+
+
+- Login:
+ ![](./materials/login.png)
+
+
+- Database:
+![](./materials/db.png)
 
 ## Sprint 2 - Planification
 

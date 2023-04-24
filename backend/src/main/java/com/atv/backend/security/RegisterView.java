@@ -1,36 +1,38 @@
 package com.atv.backend.security;
 
-import com.atv.backend.providers.UserProvider;
+import com.atv.backend.dao.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/register")
 public class RegisterView {
 
 
-    // TODO: map
-    // private static LinkedList<String> registeredUsers = new LinkedList<>();
-    private Map<String, String> registeredUsers = new HashMap<>();
-
-
-    private final UserProvider userProvider;
+    private final UserService userService;
 
     @Autowired
-    public RegisterView(UserProvider userProvider) {
-        this.userProvider = userProvider;
+    public RegisterView(UserService userService) {
+        this.userService = userService;
     }
 
 
     @PostMapping("")
     public String register(@RequestBody RegisterForm registerForm) {
-        if (Validator.validateUsername(registerForm.username()) && Validator.validatePassword(registerForm.password())
-                && Validator.validateEmail(registerForm.email()) && Validator.validatePhoneNumber(registerForm.phoneNumber())) {
-            userProvider.addRegisteredUser(registerForm.getUsername());
+        if (Validator.validateUsername(registerForm.getFirstName()) &&
+                Validator.validateUsername(registerForm.getLastName()) &&
+                Validator.validatePassword(registerForm.getPassword()) &&
+                Validator.validateEmail(registerForm.getEmail()) &&
+                Validator.validatePhoneNumber(registerForm.getPhoneNumber())) {
+
+            if (userService.userExists(registerForm.getEmail())) {
+                return "user already exists";
+            }
+
+            userService.registerUser(registerForm);
             return "success";
         }
         return "error";
@@ -44,7 +46,7 @@ public class RegisterView {
     // Getter for registered users LinkedList
     @GetMapping("/users")
     public List<String> getRegisteredUsers() {
-        return userProvider.getRegisteredUsers();
+        return userService.getRegisteredUsers();
     }
 
 }

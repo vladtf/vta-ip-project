@@ -12,10 +12,43 @@
 ## Documentation
 
 - [Requirements Specification Document](documentation/Requirements%20Specification%20Document.md)
-- [Arhitectural Design Document](documentation/Arhitectural%20Design%20Document.md)
+- [Architectural Design Document](documentation/Arhitectural%20Design%20Document.md)
 - [Sprint 1 - Review](documentation/Sprint%201%20-%20Review.md)
 
 ## Local Environment
+
+### Run frontend
+
+Node.js and npm are required.
+
+```bash
+❯ npm --version     
+9.5.0
+❯ node --version
+v19.7.0
+```
+
+Update the packages
+```bash
+> cd frontend
+> npm install
+```
+
+Run the frontend
+```bash
+> npm start
+```
+
+### Run backend
+
+Start the backend.
+> Note: You need to have Java 11 installed on your machine. You can check the version by running `java -version`.
+> Note: The database is not running locally. You need to run the docker-compose.
+
+```bash
+> cd backend
+> ./mvnw spring-boot:run
+```
 
 ### Run Docker Compose
 

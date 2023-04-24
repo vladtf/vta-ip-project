@@ -13,11 +13,13 @@ public class User {
     @Column(name = "user_id")
     private Integer id;
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String password;
     private String email;
     private String phone;
     private String address;
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Token> tokens;
@@ -25,8 +27,9 @@ public class User {
     public User() {
     }
 
-    public User(String name, String password, String email, String phone, String address) {
-        this.name = name;
+    public User(String firstName, String lastName, String password, String email, String phone, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.phone = phone;
@@ -41,12 +44,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -87,5 +98,13 @@ public class User {
 
     public void setTokens(List<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
