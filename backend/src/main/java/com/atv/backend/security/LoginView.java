@@ -27,11 +27,11 @@ public class LoginView {
             return "error";
         }
 
-        if (userService.login(loginForm)) {
-            return "success";
+        if (!userService.userExists(loginForm)) {
+            return "error";
         }
 
-        return "error";
+        return userService.login(loginForm).getToken();
     }
 
     @GetMapping("/alive")

@@ -2,6 +2,7 @@ package com.atv.backend.dao.entities;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -22,7 +23,12 @@ public class User {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Token> tokens;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Account> accounts;
 
     public User() {
     }
@@ -106,5 +112,13 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Account> getAccounts() {
+        	return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        	this.accounts = accounts;
     }
 }

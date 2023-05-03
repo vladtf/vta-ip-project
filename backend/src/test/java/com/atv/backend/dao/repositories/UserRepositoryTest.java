@@ -8,8 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,35 +19,27 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private void setUp() {
-        User user1 = new User("Alice", "lastname", "password", "test11@email.com", "123456789", "123 Main St");
-        User user2 = new User("Bob", "lastname", "password", "test12@email.com", "123456789", "123 Main St");
-        //save user, verify has ID value after save
-        assertNull(user1.getId());
-        assertNull(user2.getId());//null before save
-        this.userRepository.save(user1);
-        this.userRepository.save(user2);
-        assertNotNull(user1.getId());
-        assertNotNull(user2.getId());
+    private User generateUser() {
+        User user = new User("Alice", "lastname", "password", "test11@email.com", "123456789", "123 Main St");
+        user.setEmail(UUID.randomUUID().toString());
+        return user;
     }
+
 
     @Test
     public void testFetchData() {
         deleteDataForCleanup();
-        setUp();
+
+        User userA = generateUser();
+        userRepository.save(userA);
 
         /*Test data retrieval*/
-        User userA = userRepository.findByEmail("test11@email.com");
-        assertNotNull(userA);
-        assertEquals("test@email.com", userA.getEmail());
+        User foundUser = userRepository.findByEmail(userA.getEmail());
+        assertNotNull(foundUser);
+        assertEquals(userA.getEmail(), foundUser.getEmail());
         /*Get all products, list should only have two*/
-        Iterable<User> users = userRepository.findAll();
-        int count = 0;
-        for (User p : users) {
-            count++;
-        }
-
-        assertEquals(count, 2);
+        List<User> users = userRepository.findAll();
+        assertEquals(1, users.size());
     }
 
     @Test
