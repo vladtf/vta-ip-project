@@ -26,6 +26,19 @@ jobs:
           echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >> ~/.aws/credentials
           echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" >> ~/.aws/credentials
 
+      - name: Create S3 bucket
+        env:
+          AWS_REGION: eu-central-1
+          BUCKET_NAME: terraform-state-bucket
+        run: |
+          if aws s3api head-bucket --bucket $BUCKET_NAME 2>/dev/null; then
+            echo "Bucket $BUCKET_NAME already exists."
+          else
+            echo "Creating bucket $BUCKET_NAME in $AWS_REGION region..."
+            aws s3api create-bucket --bucket $BUCKET_NAME --create-bucket-configuration LocationConstraint=$AWS_REGION
+            aws s3api put-bucket-versioning --bucket $BUCKET_NAME --versioning-configuration Status=Enabled
+          fi
+
       - name: Terraform init
         run: terraform init
 
