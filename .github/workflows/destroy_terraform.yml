@@ -28,14 +28,14 @@ jobs:
 
       - name: Delete images from backend_repository
         run: |
-          aws ecr batch-delete-image --region eu-central-1
+          aws ecr batch-delete-image --region eu-central-1 \
               --repository-name backend_repository \
               --image-ids "$(aws ecr list-images --region eu-central-1 --repository-name backend_repository --query 'imageIds[*]' --output json
             )" || true
 
       - name: Delete images from frontend_repository
         run: |
-          aws ecr batch-delete-image --region eu-central-1
+          aws ecr batch-delete-image --region eu-central-1 \
               --repository-name frontend_repository \
               --image-ids "$(aws ecr list-images --region eu-central-1 --repository-name frontend_repository --query 'imageIds[*]' --output json
             )" || true
