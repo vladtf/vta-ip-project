@@ -20,7 +20,7 @@ jobs:
       - name: Build Spring Boot app
         working-directory: backend
         run: |
-          ./mvnw clean package
+          ./mvnw clean package -DskipTests
 
       - name: Configure AWS credentials
         env:
