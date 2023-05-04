@@ -33,4 +33,4 @@ jobs:
         env:
           TF_INPUT: false
           TF_IN_AUTOMATION: true
-        run: terraform destroy -auto-approve
+        run: terraform destroy -auto-approve -force
