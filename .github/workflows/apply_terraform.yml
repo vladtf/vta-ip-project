@@ -29,7 +29,7 @@ jobs:
       - name: Create S3 bucket
         env:
           AWS_REGION: eu-central-1
-          BUCKET_NAME: my-terraform-state-bucket
+          BUCKET_NAME: terraform-state-bucket-vta-project
         run: |
           if aws s3api head-bucket --bucket $BUCKET_NAME 2>/dev/null; then
             echo "Bucket $BUCKET_NAME already exists."
