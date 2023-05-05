@@ -1,4 +1,4 @@
-name: sample
+name: Check backend/src files changed
 on:
   pull_request:
     branches:
