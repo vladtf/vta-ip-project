@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Login from "./pages/LoginPage";
 import Registration from "./pages/Registration";
 import HomePage from "./pages/HomePage";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/home" element={<HomePage />} />
