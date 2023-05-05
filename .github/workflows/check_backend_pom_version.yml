@@ -5,30 +5,32 @@ on:
     branches:
       - master
     paths:
-      - 'backend/src/**'
+      - "backend/src/**"
 
 jobs:
   check-pom-version:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: master
+      - uses: actions/checkout@v2
 
-    - name: Check Pom Version
-      run: |
-        git branch -a
-        git ls-remote origin master
-        git ls-tree origin/master backend/pom.xml
+      - name: Check Pom Version
+        run: |
+          git branch -a
+          git ls-remote origin master
+          git ls-tree origin/master backend/pom.xml
 
-        REMOTE_VERSION=$(cat backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
-        echo "Remote version: $REMOTE_VERSION"
 
-        LOCAL_VERSION=$(cat ${{ github.event.pull_request.head.repo.name }}/backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
-        echo "Local version: $LOCAL_VERSION"
+          LOCAL_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' backend/pom.xml)
+          echo "Local version: $LOCAL_VERSION"
 
-        if [ "$REMOTE_VERSION" == "$LOCAL_VERSION" ]; then
-          echo "::error::The version in pom.xml is the same as the one on master. Please update the version in your pull request."
-          exit 1
-        fi
+          git fetch origin master
+          git checkout origin/master -- backend/pom.xml
+
+          REMOTE_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' backend/pom.xml)
+          echo "Remote version: $REMOTE_VERSION"
+
+          if [ "$REMOTE_VERSION" == "$LOCAL_VERSION" ]; then
+            echo "::error::The version in pom.xml is the same as the one on master. Please update the version in your pull request."
+            exit 1
+          fi
