@@ -9,7 +9,7 @@ class BackendApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		// Test if the context load
+		// Test if the context loads
 		Assert.assertTrue(true);
 	}
 }
