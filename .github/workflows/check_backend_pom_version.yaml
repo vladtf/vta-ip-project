@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: Check Pom Version
-        run: |
+        run: >
           git branch -a
 
           LOCAL_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' backend/pom.xml)
