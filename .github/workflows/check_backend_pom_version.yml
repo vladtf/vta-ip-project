@@ -18,8 +18,12 @@ jobs:
 
     - name: Check Pom Version
       run: |
-        REMOTE_VERSION=$(cat master:backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
-        LOCAL_VERSION=$(cat backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
+        git ls-remote origin master
+        git ls-tree origin/master backend/pom.xml
+        gti branch -a
+
+        REMOTE_VERSION=$(cat backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
+        LOCAL_VERSION=$(cat ${{ github.event.pull_request.head.repo.name }}/backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
 
         if [ "$REMOTE_VERSION" == "$LOCAL_VERSION" ]; then
           echo "::error::The version in pom.xml is the same as the one on master. Please update the version in your pull request."
