@@ -35,6 +35,9 @@ jobs:
         working-directory: frontend
         run: npm install
 
+      - name: Unset CI environment variable
+        run: unset CI
+
       - name: Build app
         working-directory: frontend
         run: npm run build
