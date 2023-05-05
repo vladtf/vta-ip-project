@@ -40,9 +40,11 @@ jobs:
             
       - name: Terraform init
         run: terraform init
+        working-directory: ./terraform
 
       - name: Terraform destroy
         env:
           TF_INPUT: false
           TF_IN_AUTOMATION: true
         run: terraform destroy -auto-approve
+        working-directory: ./terraform
