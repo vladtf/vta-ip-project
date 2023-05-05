@@ -3,8 +3,8 @@ name: Check version in pom.xml
 on:
   pull_request:
     branches:
-      - master
-
+      - '!{{ github.event.repository.default_branch }}'
+      
 jobs:
   check-version:
     runs-on: ubuntu-latest
@@ -15,9 +15,9 @@ jobs:
       
     - name: Check pom.xml version
       run: |
-        if [[ $(git diff --name-only master...$GITHUB_HEAD_REF | grep -E "^pom.xml$|^backend/src/") ]]; then
-          if [[ $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) == $(git show master:pom.xml | mvn help:evaluate -Dexpression=project.version -q -DforceStdout) ]]; then
-            echo "The pom.xml version is already in master. Please update the version and try again."
+        if [[ $(git diff --name-only ${{ github.event.repository.default_branch }}...$GITHUB_HEAD_REF | grep -E "^pom.xml$|^backend/src/") ]]; then
+          if [[ $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) == $(git show ${{ github.event.repository.default_branch }}:pom.xml | mvn help:evaluate -Dexpression=project.version -q -DforceStdout) ]]; then
+            echo "The pom.xml version is already in ${{ github.event.repository.default_branch }}. Please update the version and try again."
             exit 1
           fi
         fi
