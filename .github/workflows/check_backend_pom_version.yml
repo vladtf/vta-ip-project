@@ -18,9 +18,9 @@ jobs:
 
     - name: Check Pom Version
       run: |
+        git branch -a
         git ls-remote origin master
         git ls-tree origin/master backend/pom.xml
-        gti branch -a
 
         REMOTE_VERSION=$(cat backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
         LOCAL_VERSION=$(cat ${{ github.event.pull_request.head.repo.name }}/backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
