@@ -13,13 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: master
 
     - name: Check Pom Version
       run: |
-        REMOTE_VERSION=$(git show origin/master:backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
+        REMOTE_VERSION=$(cat master:backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
         LOCAL_VERSION=$(cat backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
 
-        if [ "$REMOTE_VERSION" != "$LOCAL_VERSION" ]; then
-          echo "::error::The version in pom.xml differs from the one on remote master. Please update the version in your pull request."
+        if [ "$REMOTE_VERSION" == "$LOCAL_VERSION" ]; then
+          echo "::error::The version in pom.xml is the same as the one on master. Please update the version in your pull request."
           exit 1
         fi
