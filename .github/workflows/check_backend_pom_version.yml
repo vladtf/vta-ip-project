@@ -15,7 +15,7 @@ jobs:
       
     - name: Check pom.xml version
       run: |
-        if [[ $(git diff --name-only master--$GITHUB_HEAD_REF | grep -E "^pom.xml$|^backend/src/") ]]; then
+        if [[ $(git diff --name-only master $GITHUB_HEAD_REF | grep -E "^pom.xml$|^backend/src/") ]]; then
           if [[ $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) == $(git show master:pom.xml | mvn help:evaluate -Dexpression=project.version -q -DforceStdout) ]]; then
             echo "The pom.xml version is already in master. Please update the version and try again."
             exit 1
