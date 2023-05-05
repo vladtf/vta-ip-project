@@ -13,14 +13,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Check Pom Version
-        run: |
-          git branch -a
-          git ls-remote origin master
-          git ls-tree origin/master backend/pom.xml
-
-
+        run: >
           LOCAL_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' backend/pom.xml)
           echo "Local version: $LOCAL_VERSION"
 
