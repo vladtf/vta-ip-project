@@ -1,0 +1,39 @@
+name: Check Pom Version on PR to master
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "backend/**"
+
+jobs:
+  check-pom-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
+      
+      - name: Check Pom Version
+        run: >
+          git fetch;
+          git branch -a;
+
+          LOCAL_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' backend/pom.xml);
+          echo "Local version: $LOCAL_VERSION";
+
+          git fetch origin master;
+          git checkout origin/master -- backend/pom.xml;
+
+          REMOTE_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' backend/pom.xml);
+          echo "Remote version: $REMOTE_VERSION";
+
+          if [ "$REMOTE_VERSION" == "$LOCAL_VERSION" ]; then
+            echo "::error::The version in pom.xml is the same as the one on master. Please update the version in your pull request.";
+            exit 1;
+          fi
