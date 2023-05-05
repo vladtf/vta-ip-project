@@ -31,6 +31,14 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build app
+        working-directory: frontend
+        run: npm run build
+
       - name: Build and push Docker image to ECR
         working-directory: frontend
         env:
