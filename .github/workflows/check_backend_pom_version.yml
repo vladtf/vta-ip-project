@@ -23,7 +23,10 @@ jobs:
         git ls-tree origin/master backend/pom.xml
 
         REMOTE_VERSION=$(cat backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
+        echo "Remote version: $REMOTE_VERSION"
+
         LOCAL_VERSION=$(cat ${{ github.event.pull_request.head.repo.name }}/backend/pom.xml | grep -o '<version>.*</version>' | sed 's/<version>//g' | sed 's/<\/version>//g')
+        echo "Local version: $LOCAL_VERSION"
 
         if [ "$REMOTE_VERSION" == "$LOCAL_VERSION" ]; then
           echo "::error::The version in pom.xml is the same as the one on master. Please update the version in your pull request."
