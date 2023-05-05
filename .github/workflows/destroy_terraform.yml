@@ -1,0 +1,48 @@
+name: Destroy Terraform
+
+on:
+  workflow_dispatch:
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.2
+
+      - name: Configure AWS credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          mkdir -p ~/.aws
+          echo "[default]" > ~/.aws/credentials
+          echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >> ~/.aws/credentials
+          echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" >> ~/.aws/credentials
+
+      - name: Delete images from backend_repository
+        run: |
+          aws ecr batch-delete-image --region eu-central-1 \
+              --repository-name backend_repository \
+              --image-ids "$(aws ecr list-images --region eu-central-1 --repository-name backend_repository --query 'imageIds[*]' --output json)" || true
+
+      - name: Delete images from frontend_repository
+        run: |
+          aws ecr batch-delete-image --region eu-central-1 \
+              --repository-name frontend_repository \
+              --image-ids "$(aws ecr list-images --region eu-central-1 --repository-name frontend_repository --query 'imageIds[*]' --output json)" || true
+            
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform destroy
+        env:
+          TF_INPUT: false
+          TF_IN_AUTOMATION: true
+        run: terraform destroy -auto-approve
