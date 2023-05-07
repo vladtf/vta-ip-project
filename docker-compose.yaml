@@ -31,7 +31,7 @@ services:
       - mariadb-data:/var/lib/mysql
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      MARIADB_DATABASE: mydatabase
+      MARIADB_DATABASE: vta_database
       MARIADB_ROOT_PASSWORD: myrootpassword
       MARIADB_USER: myuser
       MARIADB_PASSWORD: mypassword
