@@ -122,6 +122,25 @@ resource "aws_lb_target_group" "frontend_lb_tg" {
   depends_on = [aws_vpc.app_vpc]
 }
 
+resource "aws_lb_target_group" "backend_lb_tg" {
+  name        = "backend-lb-tg"
+  port        = 8090
+  protocol    = "TCP"
+  vpc_id      = aws_vpc.app_vpc.id
+  target_type = "ip"
+
+  health_check {
+    protocol            = "TCP"
+    port                = "8090"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+  }
+
+  depends_on = [aws_vpc.app_vpc]
+}
+
 
 resource "aws_lb_target_group" "mariadb_lb_tg" {
   name        = "mariadb-lb-tg"
@@ -155,6 +174,19 @@ resource "aws_lb_listener" "frontend_lb_listener" {
   }
 
   depends_on = [aws_lb.vta_load_balancer, aws_lb_target_group.frontend_lb_tg]
+}
+
+resource "aws_lb_listener" "backend_lb_listener" {
+  load_balancer_arn = aws_lb.vta_load_balancer.arn
+  port              = 8090
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.backend_lb_tg.arn
+  }
+
+  depends_on = [aws_lb.vta_load_balancer, aws_lb_target_group.backend_lb_tg]
 }
 
 resource "aws_lb_listener" "mariadb_lb_listener" {
@@ -209,12 +241,6 @@ resource "aws_ecs_task_definition" "frontend_task" {
           protocol      = "tcp"
         }
       ]
-      healthCheck = {
-        command  = ["CMD-SHELL", "curl -f http://localhost || exit 1"]
-        interval = 30
-        timeout  = 5
-        retries  = 3
-      }
       logConfiguration = {
         logDriver = "awslogs"
         options = {
@@ -223,6 +249,58 @@ resource "aws_ecs_task_definition" "frontend_task" {
           "awslogs-stream-prefix" = "frontend-container"
         }
       }
+    }
+  ])
+
+  requires_compatibilities = [
+    "FARGATE" # specify that the task definition is compatible with Fargate
+  ]
+
+  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+
+  depends_on = [aws_iam_role.ecs_task_execution_role]
+}
+
+resource "aws_ecs_task_definition" "backend_task" {
+  family       = "backend_task"
+  network_mode = "awsvpc"
+
+  cpu    = 256 # set the CPU units for the task
+  memory = 512 # set the memory limit for the task
+
+  container_definitions = jsonencode([
+    {
+      name   = "backend-container"
+      image  = aws_ecr_repository.backend_repository.repository_url
+      memory = 128 # set the memory limit for the container
+      portMappings = [
+        {
+          containerPort = 8090
+          protocol      = "tcp"
+        }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = "/ecs/backend_task"
+          "awslogs-region"        = "eu-central-1"
+          "awslogs-stream-prefix" = "backend-container"
+        }
+      }
+      environment = [
+        {
+          name  = "SPRING_DATASOURCE_URL"
+          value = "jdbc:mariadb://${aws_lb.vta_load_balancer.dns_name}:${aws_lb_listener.mariadb_lb_listener.port}/vta_database"
+        },
+        {
+          name  = "SPRING_DATASOURCE_USERNAME"
+          value = "myuser"
+        },
+        {
+          name  = "SPRING_DATASOURCE_PASSWORD"
+          value = "mypassword"
+        }
+      ]
     }
   ])
 
@@ -332,6 +410,43 @@ resource "aws_ecs_service" "frontend_service" {
   ]
 }
 
+resource "aws_ecs_service" "backend_service" {
+  name            = "backend-service"
+  cluster         = aws_ecs_cluster.vta_cluster.id
+  task_definition = aws_ecs_task_definition.backend_task.arn
+
+  launch_type = "FARGATE"
+
+  network_configuration {
+    assign_public_ip = true
+    subnets          = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+    security_groups  = [aws_security_group.backend_sg.id]
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.backend_lb_tg.arn
+    container_name   = "backend-container"
+    container_port   = 8090
+  }
+
+  platform_version = "1.4.0"
+
+  deployment_controller {
+    type = "ECS"
+  }
+
+  # Set desired_count to 1 for a single task
+  desired_count = 1
+
+  # Use the Auto Scaling group instead of desired_count
+  scheduling_strategy = "REPLICA"
+
+  depends_on = [
+    aws_ecs_cluster.vta_cluster, aws_ecs_task_definition.backend_task, aws_lb_target_group.backend_lb_tg,
+    aws_security_group.backend_sg
+  ]
+}
+
 resource "aws_ecs_service" "mariadb_service" {
   name            = "mariadb-service"
   cluster         = aws_ecs_cluster.vta_cluster.id
@@ -397,6 +512,13 @@ resource "aws_cloudwatch_log_group" "frontend_task_log_group" {
   retention_in_days = 7
 
 }
+
+resource "aws_cloudwatch_log_group" "backend_task_log_group" {
+  name              = "/ecs/backend_task"
+  retention_in_days = 7
+
+}
+
 resource "aws_cloudwatch_log_group" "mariadb_task_log_group" {
   name              = "/ecs/mariadb_task"
   retention_in_days = 7
@@ -428,8 +550,33 @@ resource "aws_security_group" "frontend_sg" {
   depends_on = [aws_vpc.app_vpc]
 }
 
+resource "aws_security_group" "backend_sg" {
+  name_prefix = "backend_sg"
+  vpc_id      = aws_vpc.app_vpc.id
+
+  ingress {
+    from_port   = 8090
+    to_port     = 8090
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "backend_sg"
+  }
+
+  depends_on = [aws_vpc.app_vpc]
+}
+
 resource "aws_security_group" "mariadb_sg" {
-  name_prefix = "frontend_sg"
+  name_prefix = "mariadb_sg"
   vpc_id      = aws_vpc.app_vpc.id
 
   ingress {
