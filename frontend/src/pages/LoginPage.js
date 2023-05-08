@@ -17,7 +17,7 @@ function Login() {
 
     console.log("Sending login data: ", postData);
     axios
-      .post("http://localhost:8090/login", postData)
+      .post("http://loadbalancer.vta.com:8090/login", postData)
       .then((response) => {
         console.log(response.data);
 
