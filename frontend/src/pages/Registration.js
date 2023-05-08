@@ -28,7 +28,7 @@ function Registration() {
     console.log("Sending registration data: ", postData);
 
     axios
-      .post("http://localhost:8090/register", postData)
+      .post("http://loadbalancer.vta.com:8090/register", postData)
       .then((response) => {
         console.log(response.data);
 
