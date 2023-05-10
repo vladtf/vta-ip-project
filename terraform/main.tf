@@ -116,7 +116,7 @@ resource "aws_lb_target_group" "frontend_lb_tg" {
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
-    unhealthy_threshold = 2
+    unhealthy_threshold = 5
   }
 
   depends_on = [aws_vpc.app_vpc]
@@ -135,31 +135,31 @@ resource "aws_lb_target_group" "backend_lb_tg" {
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
-    unhealthy_threshold = 2
+    unhealthy_threshold = 5
   }
 
   depends_on = [aws_vpc.app_vpc]
 }
 
 
-resource "aws_lb_target_group" "mariadb_lb_tg" {
-  name        = "mariadb-lb-tg"
-  port        = 3306
-  protocol    = "TCP"
-  vpc_id      = aws_vpc.app_vpc.id
-  target_type = "ip"
+# resource "aws_lb_target_group" "mariadb_lb_tg" {
+#   name        = "mariadb-lb-tg"
+#   port        = 3306
+#   protocol    = "TCP"
+#   vpc_id      = aws_vpc.app_vpc.id
+#   target_type = "ip"
 
-  health_check {
-    protocol            = "TCP"
-    port                = "3306"
-    interval            = 30
-    timeout             = 5
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-  }
+#   health_check {
+#     protocol            = "TCP"
+#     port                = "3306"
+#     interval            = 30
+#     timeout             = 5
+#     healthy_threshold   = 2
+#     unhealthy_threshold = 5
+#   }
 
-  depends_on = [aws_vpc.app_vpc]
-}
+#   depends_on = [aws_vpc.app_vpc]
+# }
 
 
 
@@ -189,18 +189,18 @@ resource "aws_lb_listener" "backend_lb_listener" {
   depends_on = [aws_lb.vta_load_balancer, aws_lb_target_group.backend_lb_tg]
 }
 
-resource "aws_lb_listener" "mariadb_lb_listener" {
-  load_balancer_arn = aws_lb.vta_load_balancer.arn
-  port              = 3306
-  protocol          = "TCP"
+# resource "aws_lb_listener" "mariadb_lb_listener" {
+#   load_balancer_arn = aws_lb.vta_load_balancer.arn
+#   port              = 3306
+#   protocol          = "TCP"
 
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.mariadb_lb_tg.arn
-  }
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.mariadb_lb_tg.arn
+#   }
 
-  depends_on = [aws_lb.vta_load_balancer, aws_lb_target_group.mariadb_lb_tg]
-}
+#   depends_on = [aws_lb.vta_load_balancer, aws_lb_target_group.mariadb_lb_tg]
+# }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "ecs-task-execution-role"
@@ -272,7 +272,7 @@ resource "aws_ecs_task_definition" "backend_task" {
     {
       name   = "backend-container"
       image  = aws_ecr_repository.backend_repository.repository_url
-      memory = 128 # set the memory limit for the container
+      memory = 256 # set the memory limit for the container
       portMappings = [
         {
           containerPort = 8090
@@ -289,8 +289,9 @@ resource "aws_ecs_task_definition" "backend_task" {
       }
       environment = [
         {
-          name  = "SPRING_DATASOURCE_URL"
-          value = "jdbc:mariadb://${aws_lb.vta_load_balancer.dns_name}:${aws_lb_listener.mariadb_lb_listener.port}/vta_database"
+          name = "SPRING_DATASOURCE_URL"
+          # value = "jdbc:mariadb://${aws_lb.vta_load_balancer.dns_name}:${aws_lb_listener.mariadb_lb_listener.port}/vta_database"
+          value = "jdbc:mariadb://18.193.79.61:3306/vta_database"
         },
         {
           name  = "SPRING_DATASOURCE_USERNAME"
@@ -301,6 +302,13 @@ resource "aws_ecs_task_definition" "backend_task" {
           value = "mypassword"
         }
       ]
+      # healthCheck = {
+      #   command     = ["CMD-SHELL", "curl --fail http://localhost:8090/login/alive || exit 1"]
+      #   interval    = 30
+      #   timeout     = 5
+      #   startPeriod = 60
+      #   retries     = 3
+      # }
     }
   ])
 
@@ -441,8 +449,11 @@ resource "aws_ecs_service" "backend_service" {
   # Use the Auto Scaling group instead of desired_count
   scheduling_strategy = "REPLICA"
 
+  # Add a health check to the service
+  # health_check_grace_period_seconds = 60
+
   depends_on = [
-    aws_ecs_cluster.vta_cluster, aws_ecs_task_definition.backend_task, aws_lb_target_group.backend_lb_tg,
+    aws_ecs_cluster.vta_cluster, aws_ecs_task_definition.backend_task, #aws_lb_target_group.backend_lb_tg,
     aws_security_group.backend_sg
   ]
 }
@@ -460,11 +471,11 @@ resource "aws_ecs_service" "mariadb_service" {
     security_groups  = [aws_security_group.mariadb_sg.id]
   }
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.mariadb_lb_tg.arn
-    container_name   = "mariadb-container"
-    container_port   = 3306
-  }
+  # load_balancer {
+  #   target_group_arn = aws_lb_target_group.mariadb_lb_tg.arn
+  #   container_name   = "mariadb-container"
+  #   container_port   = 3306
+  # }
 
 
   platform_version = "1.4.0"
@@ -600,3 +611,20 @@ resource "aws_security_group" "mariadb_sg" {
   depends_on = [aws_vpc.app_vpc]
 }
 
+resource "aws_route53_zone" "private_zone" {
+  name         = "vta.com"
+
+  vpc {
+    vpc_id     = aws_vpc.app_vpc.id
+  }
+}
+
+resource "aws_route53_record" "loadbalancer_record" {
+  name    = "loadbalancer.vta.com"
+  type    = "CNAME"
+  zone_id = aws_route53_zone.private_zone.id
+  ttl     = "300"
+  records = [aws_lb.vta_load_balancer.dns_name]
+
+  depends_on = [aws_route53_zone.private_zone, aws_lb.vta_load_balancer]
+}
