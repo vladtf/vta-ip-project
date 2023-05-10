@@ -1,23 +1,17 @@
-# Use Node.js v14 as the base image
-FROM node:14
+# Use the official Nginx image as the base image
+FROM nginx:1.21.1-alpine
 
-# Set the working directory to /app
-WORKDIR /app
+# Remove the default Nginx configuration file
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
+# Copy your Nginx configuration file to the container
+COPY nginx.conf /etc/nginx/conf.d/
 
-# Install the Node.js dependencies
-RUN npm install
+# Copy the build directory to the container
+COPY build /usr/share/nginx/html
 
-# Copy the rest of the application files to the container
-COPY . .
+# Expose port 80
+EXPOSE 80
 
-# Build the application
-RUN npm run build
-
-# Expose port 3000
-EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
