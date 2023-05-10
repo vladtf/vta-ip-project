@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
