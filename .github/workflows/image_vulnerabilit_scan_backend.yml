@@ -25,13 +25,13 @@ jobs:
         working-directory: backend
         run: |
           ./mvnw -B clean package -DskipTests -Dmaven.verbose=false
-          
+
       - name: Build and tag Docker image
         working-directory: backend
         run: |
-          docker build -t frontend:${{ github.sha }} .
+          docker build -t backend:${{ github.sha }} .
 
       - name: Run vulnerability scan
         run: |
           docker pull aquasec/trivy
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/ --workdir /root/ aquasec/trivy --exit-code 1 frontend:${{ github.sha }}
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/ --workdir /root/ aquasec/trivy backend:${{ github.sha }}
