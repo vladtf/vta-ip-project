@@ -1,0 +1,28 @@
+name: Image Vulnerability Scan
+
+on:
+    pull_request:
+      branches:
+        - master
+      paths:
+        - "backend/**"
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Docker
+        uses: docker/setup-docker@v1
+
+      - name: Build and tag Docker image
+        run: |
+          docker build -t my-docker-image:${{ github.sha }} .
+
+      - name: Run vulnerability scan
+        run: |
+          docker pull aquasec/trivy
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/ --workdir /root/ aquasec/trivy --exit-code 1 my-docker-image:${{ github.sha }}
