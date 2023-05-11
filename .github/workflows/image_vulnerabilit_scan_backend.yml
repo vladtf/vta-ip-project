@@ -34,4 +34,4 @@ jobs:
       - name: Run vulnerability scan
         run: |
           docker pull aquasec/trivy
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/ --workdir /root/ aquasec/trivy backend:${{ github.sha }}
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/ --workdir /root/ aquasec/trivy image "backend:${{ github.sha }}"
