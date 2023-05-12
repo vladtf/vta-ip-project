@@ -291,7 +291,7 @@ resource "aws_ecs_task_definition" "backend_task" {
         {
           name = "SPRING_DATASOURCE_URL"
           # value = "jdbc:mariadb://${aws_lb.vta_load_balancer.dns_name}:${aws_lb_listener.mariadb_lb_listener.port}/vta_database"
-          value = "jdbc:mariadb://18.193.79.61:3306/vta_database"
+          value = "jdbc:mariadb://18.193.119.232:3306/vta_database"
         },
         {
           name  = "SPRING_DATASOURCE_USERNAME"
