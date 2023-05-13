@@ -1,6 +1,7 @@
 package com.atv.backend.security;
 
 import com.atv.backend.dao.services.UserService;
+import com.atv.backend.requests.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,18 +22,18 @@ public class RegisterView {
 
 
     @PostMapping("")
-    public String register(@RequestBody RegisterForm registerForm) {
-        if (Validator.validateUsername(registerForm.getFirstName()) &&
-                Validator.validateUsername(registerForm.getLastName()) &&
-                Validator.validatePassword(registerForm.getPassword()) &&
-                Validator.validateEmail(registerForm.getEmail()) &&
-                Validator.validatePhoneNumber(registerForm.getPhoneNumber())) {
+    public String register(@RequestBody RegisterRequest registerRequest) {
+        if (Validator.validateUsername(registerRequest.getFirstName()) &&
+                Validator.validateUsername(registerRequest.getLastName()) &&
+                Validator.validatePassword(registerRequest.getPassword()) &&
+                Validator.validateEmail(registerRequest.getEmail()) &&
+                Validator.validatePhoneNumber(registerRequest.getPhone())) {
 
-            if (userService.userExists(registerForm.getEmail())) {
+            if (userService.userExists(registerRequest.getEmail())) {
                 return "user already exists";
             }
 
-            userService.registerUser(registerForm);
+            userService.registerUser(registerRequest);
             return "success";
         }
         return "error";

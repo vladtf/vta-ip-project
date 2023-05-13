@@ -17,19 +17,30 @@ function Login() {
 
     console.log("Sending login data: ", postData);
     axios
-      .post("http://vta-load-balancer-6c7bcbeb64605cef.elb.eu-central-1.amazonaws.com:8090/login", postData)
+      .post("http://localhost:8090/api/login", postData)
       .then((response) => {
         console.log(response.data);
 
-        if (response.data === "success") {
+        if (response.data.token) {
+          // Assuming you have an object called 'myObject'
+          const myObject = { token: response.data.token };
+
+          // Convert the object to a string using JSON.stringify
+          const serializedObject = JSON.stringify(myObject);
+
+          // Store the serialized object in the local storage
+          localStorage.setItem("token", serializedObject);
+
+
           alert("Login successful!");
+
           window.location.href = "/home";
         } else {
           alert("Login failed!");
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error.response.data);
       });
   };
 

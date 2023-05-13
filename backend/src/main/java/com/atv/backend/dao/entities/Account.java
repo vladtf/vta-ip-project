@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "accounts", uniqueConstraints = {@UniqueConstraint(columnNames = {"iban"})})
 public class Account {
 
     @Id
@@ -12,6 +12,7 @@ public class Account {
     @Column(name = "account_id")
     private Integer id;
 
+    @Column(name = "iban", unique = true)
     private String iban;
 
     private Currency currency;

@@ -28,19 +28,19 @@ function Registration() {
     console.log("Sending registration data: ", postData);
 
     axios
-      .post("http://vta-load-balancer-6c7bcbeb64605cef.elb.eu-central-1.amazonaws.com:8090/register", postData)
+      .post("http://localhost:8090/api/register", postData)
       .then((response) => {
-        console.log(response.data);
+        console.log("Register response:", response.data);
 
-        if (response.data === "success") {
-          alert("Registration successful!");
-          window.location.href = "/login";
-        } else {
-          alert("Registration failed!");
-        }
+        //if (response.data === "success") {
+        alert("Registration successful!");
+        window.location.href = "/login";
+        // } else {
+        //  alert("Registration failed!");
+        // }
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error.response.data);
       });
   };
 

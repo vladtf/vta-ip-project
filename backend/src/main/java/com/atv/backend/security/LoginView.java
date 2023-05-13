@@ -1,6 +1,7 @@
 package com.atv.backend.security;
 
 import com.atv.backend.dao.services.UserService;
+import com.atv.backend.requests.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,18 +21,18 @@ public class LoginView {
     }
 
     @PostMapping("")
-    public String login(@RequestBody LoginForm loginForm) {
-        boolean isValid = Validator.validateEmail(loginForm.getEmail()) && Validator.validatePassword(loginForm.getPassword());
+    public String login(@RequestBody LoginRequest loginRequest) {
+        boolean isValid = Validator.validateEmail(loginRequest.getEmail()) && Validator.validatePassword(loginRequest.getPassword());
 
         if (!isValid) {
             return "error";
         }
 
-        if (!userService.userExists(loginForm)) {
+        if (!userService.userExists(loginRequest)) {
             return "error";
         }
 
-        return userService.login(loginForm).getToken();
+        return userService.login(loginRequest).getToken();
     }
 
     @GetMapping("/alive")

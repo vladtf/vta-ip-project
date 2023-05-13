@@ -33,17 +33,25 @@ public class AccountService {
 
     public List<Account> getUserAccountsByToken(String token) {
         User user = getUserByToken(token);
-        return user.getAccounts();
+        //return user.getAccounts();
+
+        List<Account> accounts = user.getAccounts();
+        for (Account account1 : accounts) {
+            account1.setUser(null);
+        }
+        return accounts;
     }
 
     public List<Account> createAccountForUserByToken(String token, Account account) {
         User user = getUserByToken(token);
         user.getAccounts().add(account);
-        userRepository.save(user);
-
         account.setUser(user);
         accountRepository.save(account);
 
-        return user.getAccounts();
+        List<Account> accounts = user.getAccounts();
+        for (Account account1 : accounts) {
+            account1.setUser(null);
+        }
+        return accounts;
     }
 }

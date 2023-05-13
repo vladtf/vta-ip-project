@@ -4,8 +4,8 @@ import com.atv.backend.dao.entities.Token;
 import com.atv.backend.dao.entities.User;
 import com.atv.backend.dao.repositories.TokenRepository;
 import com.atv.backend.dao.repositories.UserRepository;
-import com.atv.backend.security.LoginForm;
-import com.atv.backend.security.RegisterForm;
+import com.atv.backend.requests.LoginRequest;
+import com.atv.backend.requests.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,22 +23,22 @@ public class UserService {
         this.tokenRepository = tokenRepository;
     }
 
-    public User registerUser(RegisterForm registerForm) {
+    public User registerUser(RegisterRequest registerRequest) {
         User user = new User();
-        user.setFirstName(registerForm.getFirstName());
-        user.setLastName(registerForm.getLastName());
-        user.setPassword(registerForm.getPassword());
-        user.setEmail(registerForm.getEmail());
-        user.setPhoneNumber(registerForm.getPhoneNumber());
+        user.setFirstName(registerRequest.getFirstName());
+        user.setLastName(registerRequest.getLastName());
+        user.setPassword(registerRequest.getPassword());
+        user.setEmail(registerRequest.getEmail());
+        user.setPhone(registerRequest.getPhone());
 
         return userRepository.save(user);
     }
 
-    public boolean userExists(LoginForm loginForm) {
-        return userRepository.existsByEmailAndPassword(loginForm.getEmail(), loginForm.getPassword());
+    public boolean userExists(LoginRequest loginRequest) {
+        return userRepository.existsByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword());
     }
 
-    public Token login(LoginForm form) {
+    public Token login(LoginRequest form) {
         if (!userRepository.existsByEmailAndPassword(form.getEmail(), form.getPassword())) {
             return null;
         }

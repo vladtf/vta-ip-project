@@ -1,58 +1,98 @@
 
-package com.atv.backend.security;
+package com.atv.backend.controllers;
 
+import com.atv.backend.dao.entities.Token;
+import com.atv.backend.dao.services.TransactionService;
 import com.atv.backend.dao.services.UserService;
+import com.atv.backend.requests.LoginRequest;
+import com.atv.backend.requests.RegisterRequest;
+import com.atv.backend.requests.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.atv.backend.providers.UserProvider;
-import com.atv.backend.dao.services.UserService;
 import com.atv.backend.dao.entities.User;
 import com.atv.backend.dao.services.AccountService;
 
 
-import com.atv.backend.dao.entities.Token;
 import com.atv.backend.dao.entities.Account;
-
-import com.atv.backend.dao.repositories.TokenRepository;
-import com.atv.backend.dao.repositories.UserRepository;
-import com.atv.backend.security.LoginForm;
-import com.atv.backend.security.RegisterForm;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/api")
-public class UserController2 {
+public class UserController {
 
     private final UserService userService;
 
-    @Autowired
-    private AccountService accountService;
+    private final TransactionService transactionService;
+    private final AccountService accountService;
 
 
     @Autowired
-    public UserController2(UserService userService,AccountService accountService) {
+    public UserController(UserService userService, TransactionService transactionService, AccountService accountService) {
         this.userService = userService;
-        this.accountService=accountService;
+        this.transactionService = transactionService;
+        this.accountService = accountService;
+
+    }
+
+    @PostMapping("/register")
+    public User registerUser(@RequestBody RegisterRequest registerRequest) {
+        if(registerRequest.getEmail()==null|| registerRequest.getEmail().equals("")){
+            throw new RuntimeException("email not provided");
+        }
+
+        return userService.registerUser(registerRequest);
     }
 
 
-    @PostMapping("/registerUser")
-    public User registerUser(@RequestBody RegisterForm registerForm) {
-        return userService.registerUser(registerForm);
-    }
-
-
-    @PostMapping("/accountsp")
+    @PostMapping("/accounts")
     public List<Account> createAccountForUserByToken(@RequestHeader("Authorization") String token, @RequestBody Account account) {
+        if(account.getIban()==null|| account.getIban().equals("")){
+            throw new RuntimeException("iban not provided");
+        }
         return accountService.createAccountForUserByToken(token, account);
     }
 
-    @GetMapping("/accountsg")
+    @GetMapping("/accounts")
     public List<Account> getUserAccountsByToken(@RequestHeader("Authorization") String token) {
+        if(token==null||token.equals(""))
+            throw new RuntimeException("token doesn t exist");
         return accountService.getUserAccountsByToken(token);
     }
 
+    @PostMapping("/login")
+    public TokenResponse loginUser(@RequestBody LoginRequest loginRequest) {
+        Token token = userService.login(loginRequest);
+        System.out.println("in login");
+        return new TokenResponse(token.getToken());
+    }
+
+
+    @PostMapping("/transaction")
+    public String makeTransaction(@RequestBody TransactionRequest transactionRequest,@RequestHeader("Authorization") String token) {
+
+        if(token==null||token.equals(""))
+            throw new RuntimeException("token doesn t exist");
+
+        transactionService.makeTransaction(transactionRequest);
+        return "succes";
+
+    }
+
+
+
+
+
+    private static class TokenResponse {
+        private final String token;
+
+        public TokenResponse(String token) {
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+    }
 }

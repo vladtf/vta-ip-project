@@ -10,15 +10,18 @@ const MyNavbar = () => {
           <Nav.Link href="/registration">Registration</Nav.Link>
           <Nav.Link href="/login">Login</Nav.Link>
 
-          <NavDropdown title="Life at ATV" id="basic-nav-dropdown">
+          {/* <NavDropdown title="Life at ATV" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Why ATV?</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Careers</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3"></NavDropdown.Item>
-          </NavDropdown>
+          </NavDropdown> */}
         </Nav>
         <Nav>
-          <Nav.Link href="#link">About us</Nav.Link>
-          <Nav.Link href="#link">Contact</Nav.Link>
+          <Nav.Link href="/accounts">Accounts</Nav.Link>
+          <Nav.Link href="/home">Home</Nav.Link>
+          <Nav.Link href="/transactions">Transactions</Nav.Link>
+          {/* <Nav.Link href="#link">About us</Nav.Link>
+          <Nav.Link href="#link">Contact</Nav.Link> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

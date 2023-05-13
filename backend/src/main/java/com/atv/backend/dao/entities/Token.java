@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tokens")
@@ -33,7 +34,7 @@ public class Token {
         LocalDate expiryDate = currentDate.plusDays(3);
         this.expiresAt = Date.valueOf(expiryDate);
 
-        this.token = String.valueOf(System.currentTimeMillis());
+        this.token = UUID.randomUUID().toString();
     }
 
     public Integer getId()  {
