@@ -1,4 +1,4 @@
-package com.atv.backend.security;
+package com.atv.backend.requests;
 
 public class LoginForm {
     private String email;
