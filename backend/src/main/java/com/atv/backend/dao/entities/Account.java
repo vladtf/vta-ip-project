@@ -1,10 +1,13 @@
 package com.atv.backend.dao.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+
+import java.util.List;
 
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "accounts", uniqueConstraints = {@UniqueConstraint(columnNames = {"iban"})})
 public class Account {
 
     @Id
@@ -12,6 +15,7 @@ public class Account {
     @Column(name = "account_id")
     private Integer id;
 
+    @Column(name = "iban", unique = true)
     private String iban;
 
     private Currency currency;
@@ -19,6 +23,19 @@ public class Account {
     private Double balance;
 
     private AccountType type;
+
+//    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    private List<Transaction> transactions;
+//
+//    public List<Transaction> getTransactions() {
+//        return transactions;
+//    }
+//
+//    public void setTransactions(List<Transaction> transactions) {
+//        this.transactions = transactions;
+//    }
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")

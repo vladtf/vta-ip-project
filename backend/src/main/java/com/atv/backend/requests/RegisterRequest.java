@@ -1,22 +1,22 @@
-package com.atv.backend.security;
+package com.atv.backend.requests;
 
-public class RegisterForm {
+public class RegisterRequest {
     private String firstName;
     private String lastName;
     private String password;
     private String email;
-    private String phoneNumber;
+    private String phone;
 
 
-    public RegisterForm() {
+    public RegisterRequest() {
     }
 
-    public RegisterForm(String firstName, String lastName, String password, String email, String phoneNumber) {
+    public RegisterRequest(String firstName, String lastName, String password, String email, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
     }
 
     public String getFirstName() {
@@ -51,11 +51,11 @@ public class RegisterForm {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

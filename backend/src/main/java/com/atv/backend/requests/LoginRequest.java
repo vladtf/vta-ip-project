@@ -1,13 +1,13 @@
-package com.atv.backend.security;
+package com.atv.backend.requests;
 
-public class LoginForm {
+public class LoginRequest {
     private String email;
     private String password;
 
-    public LoginForm() {
+    public LoginRequest() {
     }
 
-    public LoginForm(String email, String password) {
+    public LoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }

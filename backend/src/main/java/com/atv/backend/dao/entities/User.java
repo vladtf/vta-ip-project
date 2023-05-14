@@ -20,15 +20,21 @@ public class User {
     private String email;
     private String phone;
     private String address;
-    private String phoneNumber;
+
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Token> tokens;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    //@OneToMany(mappedBy = "user")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Account> accounts;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Role> roles;
+
 
     public User() {
     }
@@ -106,16 +112,16 @@ public class User {
         this.tokens = tokens;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public List<Account> getAccounts() {
         	return accounts;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public void setAccounts(List<Account> accounts) {
