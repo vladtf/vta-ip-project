@@ -1,2 +1,5 @@
-package com.atv.backend.controllers;public enum TransactionType {
+package com.atv.backend.controllers;
+
+public enum TransactionType {
+    SUBSTRACT, ADD
 }

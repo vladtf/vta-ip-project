@@ -15,6 +15,7 @@ import com.atv.backend.services.AccountService;
 
 import com.atv.backend.dao.entities.Account;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -85,6 +86,13 @@ public class UserController {
         return userService.getAllEmails(token);
     }
 
+    @GetMapping("/transactions")
+    public List<TransactionResponse> getAllTransactions(@RequestHeader("Authorization") String token, @RequestParam("iban") String iban) {
+      return accountService.findTransactionsByIban(iban);
+    }
+
+
+
 
     private static class TokenResponse {
         private final String token;
@@ -97,4 +105,39 @@ public class UserController {
             return token;
         }
     }
+
+
+    public static class TransactionResponse{
+        private final Double sum;
+        private final String destAccount;
+        private final TransactionType transactionType;
+
+        private final Date createdAt;
+
+        public Double getSum() {
+            return sum;
+        }
+
+        public String getDestAccount() {
+            return destAccount;
+        }
+
+        public TransactionType getTransactionType() {
+            return transactionType;
+        }
+
+        public Date getCreatedAt() {
+            return createdAt;
+        }
+
+        public TransactionResponse(Double sum, String destAccount, TransactionType transactionType, Date createdAt) {
+            this.sum = sum;
+            this.destAccount = destAccount;
+            this.transactionType = transactionType;
+            this.createdAt = createdAt;
+        }
+
+    }
+
 }
+
