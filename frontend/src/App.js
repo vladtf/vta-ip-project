@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import { Navigate } from "react-router-dom";
 import AccountsPage from "./pages/AccountsPage";
 import TransactionPage from "./pages/TransactionPage";
+import AdminPage from "./pages/AdminPage.js";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -29,6 +30,8 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/transactions" element={<TransactionPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+
         <Route path="/*" element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>

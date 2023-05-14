@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/register")
     public User registerUser(@RequestBody RegisterRequest registerRequest) {
-        if(registerRequest.getEmail()==null|| registerRequest.getEmail().equals("")){
+        if (registerRequest.getEmail() == null || registerRequest.getEmail().equals("")) {
             throw new RuntimeException("email not provided");
         }
 
@@ -48,7 +48,7 @@ public class UserController {
 
     @PostMapping("/accounts")
     public List<Account> createAccountForUserByToken(@RequestHeader("Authorization") String token, @RequestBody Account account) {
-        if(account.getIban()==null|| account.getIban().equals("")){
+        if (account.getIban() == null || account.getIban().equals("")) {
             throw new RuntimeException("iban not provided");
         }
         return accountService.createAccountForUserByToken(token, account);
@@ -56,7 +56,7 @@ public class UserController {
 
     @GetMapping("/accounts")
     public List<Account> getUserAccountsByToken(@RequestHeader("Authorization") String token) {
-        if(token==null||token.equals(""))
+        if (token == null || token.equals(""))
             throw new RuntimeException("token doesn t exist");
         return accountService.getUserAccountsByToken(token);
     }
@@ -70,9 +70,9 @@ public class UserController {
 
 
     @PostMapping("/transaction")
-    public String makeTransaction(@RequestBody TransactionRequest transactionRequest,@RequestHeader("Authorization") String token) {
+    public String makeTransaction(@RequestBody TransactionRequest transactionRequest, @RequestHeader("Authorization") String token) {
 
-        if(token==null||token.equals(""))
+        if (token == null || token.equals(""))
             throw new RuntimeException("token doesn t exist");
 
         transactionService.makeTransaction(transactionRequest);
@@ -80,8 +80,10 @@ public class UserController {
 
     }
 
-
-
+    @GetMapping("/emails")
+    public List<String> getAllEmails(@RequestHeader("Authorization") String token) {
+        return userService.getAllEmails(token);
+    }
 
 
     private static class TokenResponse {

@@ -20,6 +20,7 @@ const MyNavbar = () => {
           <Nav.Link href="/accounts">Accounts</Nav.Link>
           <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/transactions">Transactions</Nav.Link>
+          <Nav.Link href="/admin">Admin</Nav.Link>
           {/* <Nav.Link href="#link">About us</Nav.Link>
           <Nav.Link href="#link">Contact</Nav.Link> */}
         </Nav>

@@ -63,4 +63,9 @@ public class UserService {
     public List<String> getRegisteredUsers() {
         return userRepository.findAll().stream().map(User::getEmail).toList();
     }
+
+    public List<String> getAllEmails(String token) {
+        List<User> all = userRepository.findAll();
+        return all.stream().map(User::getEmail).toList();
+    }
 }
