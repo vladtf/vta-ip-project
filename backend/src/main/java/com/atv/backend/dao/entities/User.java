@@ -26,10 +26,15 @@ public class User {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Token> tokens;
 
-    //@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    //@OneToMany(mappedBy = "user")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Account> accounts;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Role> roles;
+
 
     public User() {
     }
@@ -109,6 +114,14 @@ public class User {
 
     public List<Account> getAccounts() {
         	return accounts;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public void setAccounts(List<Account> accounts) {

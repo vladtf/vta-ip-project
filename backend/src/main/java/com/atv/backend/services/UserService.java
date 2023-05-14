@@ -1,4 +1,4 @@
-package com.atv.backend.dao.services;
+package com.atv.backend.services;
 
 import com.atv.backend.dao.entities.Token;
 import com.atv.backend.dao.entities.User;
@@ -21,6 +21,11 @@ public class UserService {
     public UserService(UserRepository userRepository, TokenRepository tokenRepository) {
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
+    }
+
+    public User getUserByToken(String token) {
+        Token updatedToken = tokenRepository.findByToken(token);
+        return updatedToken.getUser();
     }
 
     public User registerUser(RegisterRequest registerRequest) {

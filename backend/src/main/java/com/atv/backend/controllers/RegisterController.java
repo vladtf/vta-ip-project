@@ -1,7 +1,8 @@
-package com.atv.backend.security;
+package com.atv.backend.controllers;
 
-import com.atv.backend.dao.services.UserService;
+import com.atv.backend.services.UserService;
 import com.atv.backend.requests.RegisterRequest;
+import com.atv.backend.security.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,13 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/register")
-public class RegisterView {
+public class RegisterController {
 
 
     private final UserService userService;
 
     @Autowired
-    public RegisterView(UserService userService) {
+    public RegisterController(UserService userService) {
         this.userService = userService;
     }
 

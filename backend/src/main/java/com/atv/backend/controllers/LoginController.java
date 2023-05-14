@@ -1,7 +1,8 @@
-package com.atv.backend.security;
+package com.atv.backend.controllers;
 
-import com.atv.backend.dao.services.UserService;
+import com.atv.backend.services.UserService;
 import com.atv.backend.requests.LoginRequest;
+import com.atv.backend.security.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +12,12 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/login")
-public class LoginView {
+public class LoginController {
 
     private final UserService userService;
 
     @Autowired
-    public LoginView(UserService userService) {
+    public LoginController(UserService userService) {
         this.userService = userService;
     }
 

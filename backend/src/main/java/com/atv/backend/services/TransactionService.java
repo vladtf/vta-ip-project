@@ -1,4 +1,4 @@
-package com.atv.backend.dao.services;
+package com.atv.backend.services;
 
 
 import com.atv.backend.dao.entities.Account;

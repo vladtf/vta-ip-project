@@ -2,15 +2,15 @@
 package com.atv.backend.controllers;
 
 import com.atv.backend.dao.entities.Token;
-import com.atv.backend.dao.services.TransactionService;
-import com.atv.backend.dao.services.UserService;
+import com.atv.backend.services.TransactionService;
+import com.atv.backend.services.UserService;
 import com.atv.backend.requests.LoginRequest;
 import com.atv.backend.requests.RegisterRequest;
 import com.atv.backend.requests.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.atv.backend.dao.entities.User;
-import com.atv.backend.dao.services.AccountService;
+import com.atv.backend.services.AccountService;
 
 
 import com.atv.backend.dao.entities.Account;
