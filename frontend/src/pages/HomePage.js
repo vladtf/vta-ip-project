@@ -23,7 +23,7 @@ function HomePage() {
         };
 
         const response = await axios.get(
-          "http://localhost:8090/api/transactions",
+          BACKEND_URL + "/api/transactions",
           { headers: headers }
         );
         console.log(response.data);
@@ -39,7 +39,7 @@ function HomePage() {
           Authorization: token.token,
         };
 
-        const response = await axios.get("http://localhost:8090/api/accounts", {
+        const response = await axios.get(BACKEND_URL + "/api/accounts", {
           headers: headers,
         });
 
@@ -63,7 +63,7 @@ function HomePage() {
       };
 
       const response = await axios.get(
-        `http://localhost:8090/api/transactions?iban=${iban}`,
+        BACKEND_URL + `/api/transactions?iban=${iban}`,
         { headers: headers }
       );
       console.log(response.data);

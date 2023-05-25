@@ -17,7 +17,7 @@ function Login() {
 
     console.log("Sending login data: ", postData);
     axios
-      .post("http://localhost:8090/api/login", postData)
+      .post(BACKEND_URL + "/api/login", postData)
       .then((response) => {
         console.log(response.data);
 

@@ -24,7 +24,7 @@ function AdminPage() {
     };
 
     axios
-      .get("http://localhost:8090/roles/my-roles", { headers: headers })
+      .get(BACKEND_URL + "/roles/my-roles", { headers: headers })
       .then((response) => {
         console.log(response.data);
         setRoles(response.data);
@@ -45,7 +45,7 @@ function AdminPage() {
     };
 
     axios
-      .post("http://localhost:8090/roles/add-role", request, { headers })
+      .post(BACKEND_URL + "/roles/add-role", request, { headers })
       .then((response) => {
         console.log(response.data);
         alert("Role added successfully!");
@@ -62,7 +62,7 @@ function AdminPage() {
           Authorization: token.token,
         };
         // Make the API request using Axios
-        const response = await axios.get("http://localhost:8090/api/emails", {
+        const response = await axios.get(BACKEND_URL + "/api/emails", {
           headers,
         });
         const responseData = response.data;
@@ -81,7 +81,7 @@ function AdminPage() {
         };
         // Make the API request using Axios
         const response = await axios.get(
-          "http://localhost:8090/roles/my-roles",
+          BACKEND_URL + "/roles/my-roles",
           {
             headers,
           }

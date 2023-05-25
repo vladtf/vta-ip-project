@@ -28,7 +28,7 @@ function Registration() {
     console.log("Sending registration data: ", postData);
 
     axios
-      .post("http://localhost:8090/api/register", postData)
+      .post(BACKEND_URL + "/api/register", postData)
       .then((response) => {
         console.log("Register response:", response.data);
 

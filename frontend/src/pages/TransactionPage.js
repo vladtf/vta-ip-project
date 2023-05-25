@@ -22,7 +22,7 @@ function TransactionPage() {
     };
 
     axios
-      .get("http://localhost:8090/api/accounts", { headers: headers })
+      .get(BACKEND_URL + "/api/accounts", { headers: headers })
       .then((response) => {
         console.log(response.data);
         setAccounts(response.data);
@@ -48,7 +48,7 @@ function TransactionPage() {
     };
 
     axios
-      .post("http://localhost:8090/api/transaction", transactionRequest, {
+      .post(BACKEND_URL + "/api/transaction", transactionRequest, {
         headers,
       })
       .then((response) => {

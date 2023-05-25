@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import MyNavbar from "../components/Navbar";
 import axios from "axios";
 import { useState } from "react";
+import BackendConfig, { BACKEND_URL } from "../configuration/BackendConfig";
 
 function AccountsPage() {
   const [accounts, setAccounts] = useState([]);
@@ -23,7 +24,7 @@ function AccountsPage() {
     };
 
     axios
-      .get("http://localhost:8090/api/accounts", { headers: headers })
+      .get(BACKEND_URL + "/api/accounts", { headers: headers })
       .then((response) => {
         console.log(response.data);
         setAccounts(response.data);
@@ -48,7 +49,7 @@ function AccountsPage() {
     };
 
     axios
-      .post("http://localhost:8090/api/accounts", accountRequest, { headers })
+      .post(BACKEND_URL + "/api/accounts", accountRequest, { headers })
       .then((response) => {
         console.log(response.data);
         setAccounts(response.data);
