@@ -30,6 +30,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/transactions" element={<TransactionPage />} />
+        <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/admin" element={<AdminPage />} />
 
         <Route path="/*" element={<h1>Not Found</h1>} />
