@@ -10,6 +10,7 @@ import { Navigate } from "react-router-dom";
 import AccountsPage from "./pages/AccountsPage";
 import TransactionPage from "./pages/TransactionPage";
 import AdminPage from "./pages/AdminPage.js";
+import Confirmation from "./pages/Confirmation";
 
 function App() {
   const [email, setEmail] = useState("");
