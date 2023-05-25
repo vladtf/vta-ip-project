@@ -2,6 +2,7 @@ import { Container, Row } from "react-bootstrap";
 import MyNavbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BACKEND_URL } from "../configuration/BackendConfig";
 
 function AdminPage() {
   const [roles, setRoles] = useState([]);

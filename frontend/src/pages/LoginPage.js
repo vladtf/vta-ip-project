@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MyNavbar from "../components/Navbar";
 import { Container, Row } from "react-bootstrap";
 import axios from "axios";
+import { BACKEND_URL } from "../configuration/BackendConfig";
 
 function Login() {
   const [email, setEmail] = useState("");

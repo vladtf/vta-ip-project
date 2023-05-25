@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import MyNavbar from "../components/Navbar";
 import { Container, Row } from "react-bootstrap";
+import { BACKEND_URL } from "../configuration/BackendConfig";
 
 function Registration() {
   const [email, setEmail] = useState("");

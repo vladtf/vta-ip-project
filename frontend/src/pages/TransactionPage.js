@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import MyNavbar from "../components/Navbar";
 import { useState } from "react";
 import axios from "axios";
+import { BACKEND_URL } from "../configuration/BackendConfig";
 
 function TransactionPage() {
   const [ibanSource, setIbanSource] = useState("");
