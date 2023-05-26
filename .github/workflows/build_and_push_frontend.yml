@@ -13,6 +13,7 @@ env:
   AWS_REGION: eu-central-1
   DOCKER_BUILDKIT: 1
   DOCKER_CLI_EXPERIMENTAL: enabled
+  LOAD_BALANCER_NAME: vta-load-balancer
 
 jobs:
   build-and-push:
@@ -36,6 +37,14 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Get Load Balancer DNS Name
+        id: get-lb-dns-name
+        working-directory: frontend
+        run: |
+          DNS_NAME=$(aws elbv2 describe-load-balancers --names $LOAD_BALANCER_NAME --region $AWS_REGION --query 'LoadBalancers[0].DNSName' --output text)
+          echo "REACT_APP_LOAD_BALANCER_DNS=$DNS_NAME" > .env
+          cat .env
+
       - name: Install dependencies
         working-directory: frontend
         run: npm install
@@ -55,5 +64,3 @@ jobs:
           docker build -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:latest .
           docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
           docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:latest
-
-      
