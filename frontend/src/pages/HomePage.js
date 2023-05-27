@@ -1,4 +1,4 @@
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import MyNavbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { BACKEND_URL } from "../configuration/BackendConfig";
 function HomePage() {
   const [transactions, setTransactions] = useState([]);
   const [accounts, setAccounts] = useState([]);
-  const [ibanSource, setIbanSource] = useState("");
+  const [selectedAccount, setSelectedAccount] = useState("");
 
   const token =
     localStorage.getItem("token") && JSON.parse(localStorage.getItem("token"));
@@ -23,10 +23,10 @@ function HomePage() {
           Authorization: token.token,
         };
 
-        const response = await axios.get(
-          BACKEND_URL + "/api/transactions",
-          { headers: headers }
-        );
+        const response = await axios.get(BACKEND_URL + "/api/transactions", {
+          headers: headers,
+        });
+
         console.log(response.data);
         setTransactions(response.data);
       } catch (error) {
@@ -57,14 +57,15 @@ function HomePage() {
 
   const updateTransactions = async (event) => {
     const iban = event.target.value;
-    setIbanSource(iban);
+    setSelectedAccount(iban);
+
     try {
       const headers = {
         Authorization: token.token,
       };
 
       const response = await axios.get(
-        BACKEND_URL + `/api/transactions?iban=${iban}`,
+        BACKEND_URL + `/api/transactions${iban ? `?iban=${iban}` : ""}`,
         { headers: headers }
       );
       console.log(response.data);
@@ -77,54 +78,78 @@ function HomePage() {
   return (
     <Container>
       <Row>
-        <MyNavbar />
+        <Col>
+          <MyNavbar />
+        </Col>
       </Row>
 
       <Row>
-        <h2 style={{ color: "#89CFF0", fontSize: "24px", textAlign: "center" }}>
-          Home Page
-        </h2>
+        <Col>
+          <h2
+            className="text-center"
+            style={{ color: "#89CFF0", fontSize: "24px" }}
+          >
+            Home Page
+          </h2>
+        </Col>
       </Row>
 
       <hr />
-      <Row>
-        <h3>My Transactions</h3>
-        <div className="form-group">
-          <label htmlFor="ibanSource">IBAN Source</label>
-          <select
-            className="form-control"
-            id="ibanSource"
-            onChange={(e) => updateTransactions(e)}
-          >
-            <option value="">Select an account</option>
-            {accounts.map((account) => (
-              <option key={account.id} value={account.iban}>
-                {account.iban}
-              </option>
-            ))}
-          </select>
-        </div>
 
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">IBAN Source</th>
-              <th scope="col">IBAN Dest</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((transaction) => (
-              <tr key={transaction.id}>
-                <td>{ibanSource}</td>
-                <td>{transaction.destAccount}</td>
-                <td>{transaction.sum}</td>
-                <td>{transaction.createdAt}</td>
+      <Row className="mb-3">
+        <Col md={6}>
+          <h3>My Transactions</h3>
+          <div className="form-group">
+            <label htmlFor="ibanSource">IBAN Source</label>
+            <select
+              className="form-select"
+              id="ibanSource"
+              onChange={(e) => updateTransactions(e)}
+              value={selectedAccount}
+            >
+              <option value="">All Accounts</option>
+              {accounts.map((account) => (
+                <option key={account.id} value={account.iban}>
+                  {account.iban}
+                </option>
+              ))}
+            </select>
+          </div>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">IBAN Source</th>
+                <th scope="col">IBAN Dest</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Transaction Type</th>
+                <th scope="col">Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {transactions.map((transaction) => (
+                <tr
+                  key={transaction.id}
+                  className={
+                    transaction.transactionType === "INCOME"
+                      ? "table-success"
+                      : "table-danger"
+                  }
+                >
+                  <td>{transaction.sourceAccount}</td>
+                  <td>{transaction.destAccount}</td>
+                  <td>{transaction.sum}</td>
+                  <td>{transaction.transactionType}</td>
+                  <td>{transaction.createdAt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Col>
       </Row>
     </Container>
   );

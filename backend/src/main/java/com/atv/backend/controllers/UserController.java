@@ -1,19 +1,17 @@
 
 package com.atv.backend.controllers;
 
+import com.atv.backend.dao.entities.Account;
 import com.atv.backend.dao.entities.Token;
-import com.atv.backend.services.TransactionService;
-import com.atv.backend.services.UserService;
+import com.atv.backend.dao.entities.User;
 import com.atv.backend.requests.LoginRequest;
 import com.atv.backend.requests.RegisterRequest;
 import com.atv.backend.requests.TransactionRequest;
+import com.atv.backend.services.AccountService;
+import com.atv.backend.services.TransactionService;
+import com.atv.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.atv.backend.dao.entities.User;
-import com.atv.backend.services.AccountService;
-
-
-import com.atv.backend.dao.entities.Account;
 
 import java.util.Date;
 import java.util.List;
@@ -55,6 +53,14 @@ public class UserController {
         return accountService.createAccountForUserByToken(token, account);
     }
 
+    @DeleteMapping("/accounts")
+    public List<Account> deleteAccountForUserByToken(@RequestHeader("Authorization") String token, @RequestBody Account account) {
+        if (account.getIban() == null || account.getIban().equals("")) {
+            throw new RuntimeException("iban not provided");
+        }
+        return accountService.deleteAccountForUserByToken(token, account);
+    }
+
     @GetMapping("/accounts")
     public List<Account> getUserAccountsByToken(@RequestHeader("Authorization") String token) {
         if (token == null || token.equals(""))
@@ -65,7 +71,6 @@ public class UserController {
     @PostMapping("/login")
     public TokenResponse loginUser(@RequestBody LoginRequest loginRequest) {
         Token token = userService.login(loginRequest);
-        System.out.println("in login");
         return new TokenResponse(token.getToken());
     }
 
@@ -78,7 +83,6 @@ public class UserController {
 
         transactionService.makeTransaction(transactionRequest);
         return "succes";
-
     }
 
     @GetMapping("/emails")
@@ -87,11 +91,18 @@ public class UserController {
     }
 
     @GetMapping("/transactions")
-    public List<TransactionResponse> getAllTransactions(@RequestHeader("Authorization") String token, @RequestParam("iban") String iban) {
-      return accountService.findTransactionsByIban(iban);
+    public List<TransactionResponse> getAllTransactions(
+            @RequestHeader("Authorization") String token,
+            @RequestParam(value = "iban", required = false) String iban
+    ) {
+        if (token == null || token.equals("")) {
+            throw new RuntimeException("User not logged in");
+        }
+
+        User user = userService.getUserByToken(token);
+
+        return accountService.findTransactionsByIban(iban, user);
     }
-
-
 
 
     private static class TokenResponse {
@@ -107,8 +118,9 @@ public class UserController {
     }
 
 
-    public static class TransactionResponse{
+    public static class TransactionResponse {
         private final Double sum;
+        private final String sourceAccount;
         private final String destAccount;
         private final TransactionType transactionType;
 
@@ -116,6 +128,10 @@ public class UserController {
 
         public Double getSum() {
             return sum;
+        }
+
+        public String getSourceAccount() {
+            return sourceAccount;
         }
 
         public String getDestAccount() {
@@ -130,8 +146,9 @@ public class UserController {
             return createdAt;
         }
 
-        public TransactionResponse(Double sum, String destAccount, TransactionType transactionType, Date createdAt) {
+        public TransactionResponse(Double sum, String sourceAccount, String destAccount, TransactionType transactionType, Date createdAt) {
             this.sum = sum;
+            this.sourceAccount = sourceAccount;
             this.destAccount = destAccount;
             this.transactionType = transactionType;
             this.createdAt = createdAt;

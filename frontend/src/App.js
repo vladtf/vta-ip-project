@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
-import Login from "./pages/LoginPage";
-import Registration from "./pages/Registration";
+import LoginPage from "./pages/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage";
 import HomePage from "./pages/HomePage";
 import { Navigate } from "react-router-dom";
 import AccountsPage from "./pages/AccountsPage";
@@ -26,8 +26,8 @@ function App() {
       <Routes>
         {/* <Route exact path="/" component={Home} /> */}
         <Route exact path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<Registration />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/transactions" element={<TransactionPage />} />

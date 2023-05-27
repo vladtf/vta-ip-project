@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import MyNavbar from "../components/Navbar";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import MyNavbar from "../components/Navbar";
 import { BACKEND_URL } from "../configuration/BackendConfig";
 
-function Login() {
+function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,15 +23,9 @@ function Login() {
         console.log(response.data);
 
         if (response.data.token) {
-          // Assuming you have an object called 'myObject'
           const myObject = { token: response.data.token };
-
-          // Convert the object to a string using JSON.stringify
           const serializedObject = JSON.stringify(myObject);
-
-          // Store the serialized object in the local storage
           localStorage.setItem("token", serializedObject);
-
 
           alert("Login successful!");
 
@@ -42,6 +36,7 @@ function Login() {
       })
       .catch((error) => {
         console.error(error.response.data);
+        alert("Login failed!");
       });
   };
 
@@ -51,95 +46,69 @@ function Login() {
         <MyNavbar />
       </Row>
       <Row>
-        <h2 style={{ color: "#89CFF0", fontSize: "24px", textAlign: "center" }}>
-          Login Page
-        </h2>
-      </Row>
-      <Row></Row>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label
-            style={{
-              marginLeft: "500px",
-              marginBottom: "20px",
-              marginTop: "40px",
-            }}
-          >
-            Email:
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            style={{
-              marginLeft: "10px",
-              marginRight: "100px",
-              marginBottom: "20px",
-              marginTop: "40px",
-            }}
-          />
-        </div>
-
-        <div className="form-group">
-          <label style={{ marginLeft: "472px", marginBottom: "20px" }}>
-            Password:
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            style={{
-              marginLeft: "10px",
-              marginRight: "100px",
-              marginBottom: "20px",
-            }}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{
-            marginLeft: "500px",
-            marginBottom: "20px",
-            marginTop: "40px",
-          }}
-          onClick={handleSubmit}
-        >
-          Login
-        </button>
-      </form>
-      <Row>
-        <form action="registration">
+        <Col>
           <h2
-            style={{
-              color: "black",
-              fontSize: "15px",
-              display: "inline-block",
-              marginLeft: "480px",
-            }}
+            style={{ color: "#89CFF0", fontSize: "24px", textAlign: "center" }}
           >
-            Don't have an account? Then
+            Login Page
           </h2>
-          <button
-            style={{
-              display: "inline-block",
-              marginLeft: "10px",
-              border: "none",
-              textDecoration: "underline",
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = "/registration";
-            }}
-          >
-            Register
-          </button>
-        </form>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={{ span: 6, offset: 3 }}>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="email" className="mb-3">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="password" className="mb-3">
+              <Form.Label>Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Form.Group>
+
+            <div className="d-flex justify-content-center">
+              <Button
+                variant="primary"
+                type="submit"
+                style={{
+                  width: "200px",
+                  height: "50px",
+                  backgroundColor: "#89CFF0",
+                  borderColor: "#89CFF0",
+                }}
+                onClick={handleSubmit}
+              >
+                Login
+              </Button>
+            </div>
+          </Form>
+
+          <Row className="mt-3">
+            <Col>
+              <p
+                style={{
+                  color: "black",
+                  fontSize: "15px",
+                  textAlign: "center",
+                }}
+              >
+                Don't have an account? <a href="/registration">Register</a>
+              </p>
+            </Col>
+          </Row>
+        </Col>
       </Row>
     </Container>
   );
 }
 
-export default Login;
+export default LoginPage;

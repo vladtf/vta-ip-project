@@ -10,6 +10,6 @@ import java.util.List;
 public interface TransactionRepository extends CrudRepository<Transaction, Integer> {
 
     List<Transaction> findAllByDestAccount(Account destAccount);
-    List<Transaction> findAllBySourceAccount(Account sourceAccount);
 
+    List<Transaction> findAllBySourceAccount(Account sourceAccount);
 }

@@ -6,10 +6,8 @@ import { BACKEND_URL } from "../configuration/BackendConfig";
 
 function AdminPage() {
   const [roles, setRoles] = useState([]);
-
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-
   const [emails, setEmails] = useState([]);
 
   const token =
@@ -50,6 +48,7 @@ function AdminPage() {
       .then((response) => {
         console.log(response.data);
         alert("Role added successfully!");
+        getMyRoles(); // Fetch roles again after adding a role
       })
       .catch((error) => {
         console.error(error.response.data);
@@ -62,13 +61,10 @@ function AdminPage() {
         const headers = {
           Authorization: token.token,
         };
-        // Make the API request using Axios
         const response = await axios.get(BACKEND_URL + "/api/emails", {
           headers,
         });
         const responseData = response.data;
-
-        // Save the data
         setEmails(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -80,16 +76,10 @@ function AdminPage() {
         const headers = {
           Authorization: token.token,
         };
-        // Make the API request using Axios
-        const response = await axios.get(
-          BACKEND_URL + "/roles/my-roles",
-          {
-            headers,
-          }
-        );
+        const response = await axios.get(BACKEND_URL + "/roles/my-roles", {
+          headers,
+        });
         const responseData = response.data;
-
-        // Save the data
         setRoles(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -114,20 +104,14 @@ function AdminPage() {
       <Row>
         <h3>My Roles</h3>
         <div className="form-group">
-          <button
-            className="btn btn-primary btn-block"
-            onClick={() => getMyRoles()}
-          >
-            Refresh My Roles
-          </button>
-        </div>
-        <div className="form-group">
-          <label>Roles:</label>
-          <ul>
-            {roles.map((role, index) => (
-              <li key={index}>{role}</li>
-            ))}
-          </ul>
+          <div className="form-group">
+            <label>Roles:</label>
+            <ul>
+              {roles.map((role, index) => (
+                <li key={index}>{role}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Row>
       <hr />

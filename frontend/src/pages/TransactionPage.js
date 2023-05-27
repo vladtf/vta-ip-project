@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import MyNavbar from "../components/Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../configuration/BackendConfig";
 
@@ -17,6 +17,10 @@ function TransactionPage() {
     window.location.href = "/login";
   }
 
+  useEffect(() => {
+    getMyAccounts();
+  }, []);
+
   const getMyAccounts = () => {
     const headers = {
       Authorization: token.token,
@@ -27,11 +31,9 @@ function TransactionPage() {
       .then((response) => {
         console.log(response.data);
         setAccounts(response.data);
-        return response.data;
       })
       .catch((error) => {
         console.error(error.response.data);
-        return [];
       });
   };
 
@@ -73,15 +75,18 @@ function TransactionPage() {
       </Row>
       <Row>
         <Col md={6}>
-          <button className="btn btn-success" onClick={() => getMyAccounts()}>
-            Refresh Accounts List
-          </button>
-          <div className="form-group">
-            <label htmlFor="iban">My account IBAN</label>
+          <div className="mb-3">
+            <button className="btn btn-success" onClick={getMyAccounts}>
+              Refresh Accounts List
+            </button>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="ibanSource" className="form-label">My account IBAN</label>
             <select
               className="form-select"
-              id="iban"
+              id="ibanSource"
               onChange={(e) => setIbanSource(e.target.value)}
+              value={ibanSource}
             >
               <option value="">Select an account</option>
               {accounts.map((account) => (
@@ -91,12 +96,13 @@ function TransactionPage() {
               ))}
             </select>
           </div>
-          <div className="form-group">
-            <label htmlFor="iban">Destination account IBAN</label>
+          <div className="mb-3">
+            <label htmlFor="ibanDest" className="form-label">Destination account IBAN</label>
             <select
               className="form-select"
-              id="iban"
+              id="ibanDest"
               onChange={(e) => setIbanDest(e.target.value)}
+              value={ibanDest}
             >
               <option value="">Select an account</option>
               {accounts.map((account) => (
@@ -106,8 +112,8 @@ function TransactionPage() {
               ))}
             </select>
           </div>
-          <div className="form-group">
-            <label htmlFor="amount">Amount</label>
+          <div className="mb-3">
+            <label htmlFor="amount" className="form-label">Amount</label>
             <input
               type="number"
               className="form-control"
@@ -117,11 +123,8 @@ function TransactionPage() {
               onChange={(event) => setAmount(event.target.value)}
             />
           </div>
-          <div className="form-group">
-            <button
-              className="btn btn-primary"
-              onClick={() => sendTransaction()}
-            >
+          <div className="mb-3">
+            <button className="btn btn-primary" onClick={sendTransaction}>
               Send Transaction
             </button>
           </div>
