@@ -14,10 +14,10 @@
 | Backend - add 2fa logic                          | Done   |       |
 | Frontend - add 2fa page                          | Done   |       |
 | Backend - add sending email logic                | Done   |       |
+| Frontend - add activation page                   | Done   |       |
 | Frontend - improve error handling                | Done   |       |
 | Backend - deploy to docker                       | Done   |       |
 | Frontend - deploy to docker                      | Done   |       |
-| Terraform - deploy to aws                        | Done   |       |
 | Terraform - fix communication between components | Done   |       |
 | Terraform - improve security                     | TODO   |       |
 
