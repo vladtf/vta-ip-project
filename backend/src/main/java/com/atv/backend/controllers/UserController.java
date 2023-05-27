@@ -69,9 +69,24 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public TokenResponse loginUser(@RequestBody LoginRequest loginRequest) {
+    public boolean loginUser(@RequestBody LoginRequest loginRequest) {
         Token token = userService.login(loginRequest);
-        return new TokenResponse(token.getToken());
+
+        if (token == null) {
+            throw new RuntimeException("user not found");
+        }
+
+        return true;
+    }
+
+    @GetMapping("/activate")
+    public TokenResponse activateUser(@RequestParam("token") String token) {
+        User user = userService.getUserByToken(token);
+        if (user == null) {
+            throw new RuntimeException("user not found");
+        }
+
+        return new TokenResponse(token, user.getEmail());
     }
 
 
@@ -107,13 +122,19 @@ public class UserController {
 
     private static class TokenResponse {
         private final String token;
+        private final String email;
 
-        public TokenResponse(String token) {
+        public TokenResponse(String token, String email) {
             this.token = token;
+            this.email = email;
         }
 
         public String getToken() {
             return token;
+        }
+
+        public String getEmail() {
+            return email;
         }
     }
 

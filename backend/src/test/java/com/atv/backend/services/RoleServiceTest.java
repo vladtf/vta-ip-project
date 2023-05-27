@@ -1,6 +1,5 @@
 package com.atv.backend.services;
 
-import com.atv.backend.dao.entities.Account;
 import com.atv.backend.dao.entities.Role;
 import com.atv.backend.dao.entities.Token;
 import com.atv.backend.dao.entities.User;
@@ -18,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static com.atv.backend.dao.entities.Role.Action.DISPLAY_USERS;
-import static org.junit.jupiter.api.Assertions.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
@@ -31,7 +30,7 @@ public class RoleServiceTest {
 
 
     @Test
-    public void testCreateUserAndAddRole(){
+    public void testCreateUserAndAddRole() {
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setFirstName("test");
         registerRequest.setLastName("test");
@@ -48,13 +47,13 @@ public class RoleServiceTest {
         Assert.assertTrue(userExists);
 
         // login user
-        Token token = userService.login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword()));
+        Token token = userService.login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword(), "test"));
         Assert.assertNotNull(token);
 
 
         AddRoleRequest addRoleRequest = new AddRoleRequest(registerUser.getEmail(), DISPLAY_USERS);
         roleService.addRoleToUser(token.getToken(), addRoleRequest);
-        List<Role.Action> result=roleService.listActions(token.getToken());
+        List<Role.Action> result = roleService.listActions(token.getToken());
         Assert.assertEquals(1, result.size());
 
         Assert.assertEquals(DISPLAY_USERS, result.get(0));

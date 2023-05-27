@@ -9,10 +9,9 @@ function AccountsPage() {
   const [currency, setCurrency] = useState("EUR");
   const [type, setType] = useState("SAVINGS");
 
-  const token =
-    localStorage.getItem("token") && JSON.parse(localStorage.getItem("token"));
+  const token = localStorage.getItem("token");
 
-  if (!token || !token.token) {
+  if (!token) {
     window.location.href = "/login";
   }
 
@@ -29,7 +28,7 @@ function AccountsPage() {
 
   const getAccounts = () => {
     const headers = {
-      Authorization: token.token,
+      Authorization: token,
     };
 
     axios
@@ -61,7 +60,7 @@ function AccountsPage() {
     console.log("Sending account data: ", accountRequest);
 
     const headers = {
-      Authorization: token.token,
+      Authorization: token
     };
 
     axios
@@ -77,7 +76,7 @@ function AccountsPage() {
 
   const deleteAccount = (iban) => {
     const headers = {
-      Authorization: token.token,
+      Authorization: token,
     };
 
     const confirmDelete = window.confirm(

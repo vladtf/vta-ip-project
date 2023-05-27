@@ -10,10 +10,9 @@ function TransactionPage() {
   const [amount, setAmount] = useState("");
   const [accounts, setAccounts] = useState([]);
 
-  const token =
-    localStorage.getItem("token") && JSON.parse(localStorage.getItem("token"));
+  const token = localStorage.getItem("token");
 
-  if (!token || !token.token) {
+  if (!token) {
     window.location.href = "/login";
   }
 
@@ -23,7 +22,7 @@ function TransactionPage() {
 
   const getMyAccounts = () => {
     const headers = {
-      Authorization: token.token,
+      Authorization: token,
     };
 
     axios
@@ -47,7 +46,7 @@ function TransactionPage() {
     console.log("Sending transaction data: ", transactionRequest);
 
     const headers = {
-      Authorization: token.token,
+      Authorization: token,
     };
 
     axios
@@ -76,12 +75,9 @@ function TransactionPage() {
       <Row>
         <Col md={6}>
           <div className="mb-3">
-            <button className="btn btn-success" onClick={getMyAccounts}>
-              Refresh Accounts List
-            </button>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="ibanSource" className="form-label">My account IBAN</label>
+            <label htmlFor="ibanSource" className="form-label">
+              My account IBAN
+            </label>
             <select
               className="form-select"
               id="ibanSource"
@@ -97,7 +93,9 @@ function TransactionPage() {
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="ibanDest" className="form-label">Destination account IBAN</label>
+            <label htmlFor="ibanDest" className="form-label">
+              Destination account IBAN
+            </label>
             <select
               className="form-select"
               id="ibanDest"
@@ -113,7 +111,9 @@ function TransactionPage() {
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="amount" className="form-label">Amount</label>
+            <label htmlFor="amount" className="form-label">
+              Amount
+            </label>
             <input
               type="number"
               className="form-control"

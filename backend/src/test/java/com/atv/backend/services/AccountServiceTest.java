@@ -5,8 +5,6 @@ import com.atv.backend.dao.entities.Token;
 import com.atv.backend.dao.entities.User;
 import com.atv.backend.requests.LoginRequest;
 import com.atv.backend.requests.RegisterRequest;
-import com.atv.backend.services.AccountService;
-import com.atv.backend.services.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +45,7 @@ public class AccountServiceTest {
         Assert.assertTrue(userExists);
 
         // login user
-        Token token = userService.login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword()));
+        Token token = userService.login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword(), "test"));
         Assert.assertNotNull(token);
 
         // create account

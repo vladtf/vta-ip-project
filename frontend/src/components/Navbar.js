@@ -1,41 +1,96 @@
 import React from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { FaPiggyBank } from "react-icons/fa"; // Import the piggy bank icon from react-icons
 
 const MyNavbar = () => {
+  const email = localStorage.getItem("email");
+
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
     window.location.href = "/login";
   };
 
+  const dropdownContainerStyle = {
+    marginLeft: "auto",
+  };
+
+  const brandStyle = {
+    display: "flex",
+    alignItems: "center",
+    fontWeight: "bold",
+  };
+
+  const navLinkStyle = {
+    marginRight: "10px",
+  };
+
+  const dropdownItemStyle = {
+    fontSize: "14px",
+  };
+
   return (
-    <Navbar bg="light p-2" expand="lg">
-      <Navbar.Brand href="/home">ATV Online Banking</Navbar.Brand>
+    <Navbar
+      expand="lg"
+      variant="light"
+      style={{
+        backgroundColor: "#e3f2fd",
+        fontSize: "24px",
+      }}
+      className="mb-4"
+    >
+      <Navbar.Brand href="/home" style={brandStyle}>
+        <FaPiggyBank style={{ marginRight: "5px", marginLeft: "10px" }} /> ATV
+        Bank
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/registration">Registration</Nav.Link>
-          <Nav.Link href="/login">Login</Nav.Link>
-          <Nav.Link href="/admin">Admin</Nav.Link>
-          <NavDropdown title="My Profile" id="logout-nav-dropdown">
-            <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => {}}>
-              Change Password
-            </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => (window.location.href = "/home")}>
-              Home
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => (window.location.href = "/accounts")}
-            >
-              Accounts
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              onClick={() => (window.location.href = "/transactions")}
-            >
-              Transactions
-            </NavDropdown.Item>
-          </NavDropdown>
+        <Nav className="ml-auto">
+          {!email ? (
+            <>
+              <Nav.Link href="/registration" style={navLinkStyle}>
+                Registration
+              </Nav.Link>
+              <Nav.Link href="/login" style={navLinkStyle}>
+                Login
+              </Nav.Link>
+            </>
+          ) : (
+            <>
+              <Nav.Link href="/home" style={navLinkStyle}>
+                Home
+              </Nav.Link>
+              <Nav.Link href="/accounts" style={navLinkStyle}>
+                Accounts
+              </Nav.Link>
+              <Nav.Link href="/transactions" style={navLinkStyle}>
+                Transactions
+              </Nav.Link>
+            </>
+          )}
         </Nav>
+        {email && (
+          <Nav style={dropdownContainerStyle}>
+            <Nav.Link href="/admin" style={navLinkStyle}>
+              Admin
+            </Nav.Link>
+            <NavDropdown
+              title={email}
+              id="profile-nav-dropdown"
+              style={navLinkStyle}
+            >
+              <NavDropdown.Item onClick={() => {}} style={dropdownItemStyle}>
+                Change Password
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={handleLogout}
+                style={dropdownItemStyle}
+              >
+                Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );

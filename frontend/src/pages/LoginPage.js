@@ -14,6 +14,7 @@ function LoginPage() {
     const postData = {
       email: email,
       password: password,
+      device: window.location.protocol + "//" + window.location.host,
     };
 
     console.log("Sending login data: ", postData);
@@ -22,17 +23,8 @@ function LoginPage() {
       .then((response) => {
         console.log(response.data);
 
-        if (response.data.token) {
-          const myObject = { token: response.data.token };
-          const serializedObject = JSON.stringify(myObject);
-          localStorage.setItem("token", serializedObject);
-
-          alert("Login successful!");
-
-          window.location.href = "/home";
-        } else {
-          alert("Login failed!");
-        }
+        alert("Login successful! Check your email for the activation link.");
+        window.location.href = "/login";
       })
       .catch((error) => {
         console.error(error.response.data);

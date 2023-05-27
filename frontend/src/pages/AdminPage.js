@@ -10,16 +10,15 @@ function AdminPage() {
   const [role, setRole] = useState("");
   const [emails, setEmails] = useState([]);
 
-  const token =
-    localStorage.getItem("token") && JSON.parse(localStorage.getItem("token"));
+  const token = localStorage.getItem("token");
 
-  if (!token || !token.token) {
+  if (!token) {
     window.location.href = "/login";
   }
 
   const getMyRoles = () => {
     const headers = {
-      Authorization: token.token,
+      Authorization: token,
     };
 
     axios
@@ -35,7 +34,7 @@ function AdminPage() {
 
   const addRoleToUser = () => {
     const headers = {
-      Authorization: token.token,
+      Authorization: token,
     };
 
     const request = {
@@ -59,7 +58,7 @@ function AdminPage() {
     const fetchEmails = async () => {
       try {
         const headers = {
-          Authorization: token.token,
+          Authorization: token,
         };
         const response = await axios.get(BACKEND_URL + "/api/emails", {
           headers,
@@ -74,7 +73,7 @@ function AdminPage() {
     const fetchMyRoles = async () => {
       try {
         const headers = {
-          Authorization: token.token,
+          Authorization: token,
         };
         const response = await axios.get(BACKEND_URL + "/roles/my-roles", {
           headers,

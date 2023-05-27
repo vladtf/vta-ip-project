@@ -10,9 +10,9 @@ function HomePage() {
   const [selectedAccount, setSelectedAccount] = useState("");
 
   const token =
-    localStorage.getItem("token") && JSON.parse(localStorage.getItem("token"));
+    localStorage.getItem("token");
 
-  if (!token || !token.token) {
+  if (!token ) {
     window.location.href = "/login";
   }
 
@@ -20,7 +20,7 @@ function HomePage() {
     const fetchTransactions = async () => {
       try {
         const headers = {
-          Authorization: token.token,
+          Authorization: token,
         };
 
         const response = await axios.get(BACKEND_URL + "/api/transactions", {
@@ -37,7 +37,7 @@ function HomePage() {
     const fetchAccounts = async () => {
       try {
         const headers = {
-          Authorization: token.token,
+          Authorization: token,
         };
 
         const response = await axios.get(BACKEND_URL + "/api/accounts", {
@@ -61,7 +61,7 @@ function HomePage() {
 
     try {
       const headers = {
-        Authorization: token.token,
+        Authorization: token,
       };
 
       const response = await axios.get(

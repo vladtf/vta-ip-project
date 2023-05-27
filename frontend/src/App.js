@@ -10,7 +10,7 @@ import { Navigate } from "react-router-dom";
 import AccountsPage from "./pages/AccountsPage";
 import TransactionPage from "./pages/TransactionPage";
 import AdminPage from "./pages/AdminPage.js";
-import Confirmation from "./pages/Confirmation";
+import ActivatePage from "./pages/ActivatePage";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -31,8 +31,8 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/transactions" element={<TransactionPage />} />
-        <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/activate/:token" element={<ActivatePage />} />
 
         <Route path="/*" element={<h1>Not Found</h1>} />
       </Routes>
