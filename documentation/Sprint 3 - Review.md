@@ -24,25 +24,25 @@
 ## Sprint 3 - Screenshots
 
 Mail Server:
-![](materials/srpint3/mailosaur.png)
+![](materials/sprint3/mailosaur.png)
 
 Activation Email:
-![](materials/srpint3/activation_email.png)
+![](materials/sprint3/activation_email.png)
 
 Accounts Page:
-![](materials/srpint3/accounts_page.png)
+![](materials/sprint3/accounts_page.png)
 
 Admin Page:
-![](materials/srpint3/admin_page.png)
+![](materials/sprint3/admin_page.png)
 
 Ecs Cluster:
-![](materials/srpint3/ecs_cluster.png)
+![](materials/sprint3/ecs_cluster.png)
 
 Home Page:
-![](materials/srpint3/home_page.png)
+![](materials/sprint3/home_page.png)
 
 Login Page:
-![](materials/srpint3/login_page.png)
+![](materials/sprint3/login_page.png)
 
 Transactions Page:
-![](materials/srpint3/transactions_page.png)
+![](materials/sprint3/transactions_page.png)
