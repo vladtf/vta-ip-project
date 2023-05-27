@@ -22,6 +22,7 @@ function TransactionPage() {
 
   useEffect(() => {
     getMyAccounts();
+    fetchTransactions();
   }, []);
 
   const getMyAccounts = () => {
@@ -40,44 +41,22 @@ function TransactionPage() {
       });
   };
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const headers = {
-          Authorization: token,
-        };
+  const fetchTransactions = async () => {
+    try {
+      const headers = {
+        Authorization: token,
+      };
 
-        const response = await axios.get(BACKEND_URL + "/api/transactions", {
-          headers: headers,
-        });
+      const response = await axios.get(BACKEND_URL + "/api/transactions", {
+        headers: headers,
+      });
 
-        console.log(response.data);
-        setTransactions(response.data);
-      } catch (error) {
-        console.error(error.response.data);
-      }
-    };
-
-    const fetchAccounts = async () => {
-      try {
-        const headers = {
-          Authorization: token,
-        };
-
-        const response = await axios.get(BACKEND_URL + "/api/accounts", {
-          headers: headers,
-        });
-
-        console.log(response.data);
-        setAccounts(response.data);
-      } catch (error) {
-        console.error(error.response.data);
-      }
-    };
-
-    fetchTransactions();
-    fetchAccounts();
-  }, []);
+      console.log(response.data);
+      setTransactions(response.data);
+    } catch (error) {
+      console.error(error.response.data);
+    }
+  };
 
   const updateTransactions = async (event) => {
     const iban = event.target.value;
@@ -106,6 +85,14 @@ function TransactionPage() {
       sum: amount,
     };
 
+    const confirmTransaction = window.confirm(
+      `Are you sure you want to send ${amount} from ${ibanSource} to ${ibanDest}?`
+    );
+
+    if (!confirmTransaction) {
+      return;
+    }
+
     console.log("Sending transaction data: ", transactionRequest);
 
     const headers = {
@@ -119,6 +106,7 @@ function TransactionPage() {
       .then((response) => {
         console.log(response.data);
         alert("Transaction successful!");
+        fetchTransactions(); // Fetch transactions again after successful transaction
       })
       .catch((error) => {
         console.error(error.response.data);

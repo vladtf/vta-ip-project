@@ -74,7 +74,7 @@ function HomePage() {
                 {transactions.length === 0 ? (
                   <p>No recent transactions found.</p>
                 ) : (
-                  transactions.map((transaction, index) => (
+                  transactions.slice(0, 5).map((transaction, index) => (
                     <Card
                       key={index}
                       className={

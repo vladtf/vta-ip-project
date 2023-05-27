@@ -52,6 +52,7 @@ function AdminPage() {
       })
       .catch((error) => {
         console.error(error.response.data);
+        alert("Error adding role!");
       });
   };
 
