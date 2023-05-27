@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import axios from "axios";
 import MyNavbar from "../components/MyNavbar";
 import { BACKEND_URL } from "../configuration/BackendConfig";
@@ -8,6 +8,7 @@ import MyFooter from "../components/MyFooter";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,6 +18,8 @@ function LoginPage() {
       password: password,
       device: window.location.protocol + "//" + window.location.host,
     };
+
+    setLoading(true); // Set loading state to true
 
     console.log("Sending login data: ", postData);
     axios
@@ -30,6 +33,9 @@ function LoginPage() {
       .catch((error) => {
         console.error(error.response.data);
         alert("Login failed!");
+      })
+      .finally(() => {
+        setLoading(false); // Set loading state to false after the request completes
       });
   };
 
@@ -82,8 +88,15 @@ function LoginPage() {
                     borderColor: "#89CFF0",
                   }}
                   onClick={handleSubmit}
+                  disabled={loading} // Disable the button when loading is true
                 >
-                  Login
+                  {loading ? ( // Conditionally render the button text or a spinner based on the loading state
+                    <Spinner animation="border" size="sm" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  ) : (
+                    "Login"
+                  )}
                 </Button>
               </div>
             </Form>
