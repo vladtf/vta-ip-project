@@ -36,8 +36,11 @@ const MyNavbar = () => {
       style={{
         backgroundColor: "#e3f2fd",
         fontSize: "24px",
+        width: "100%",
+        left: 0,
+        right: 0,
       }}
-      className="mb-4"
+      className="mb-4 navbar-full-width" // Added a custom class for full width
     >
       <Navbar.Brand href="/home" style={brandStyle}>
         <FaPiggyBank style={{ marginRight: "5px", marginLeft: "10px" }} /> ATV

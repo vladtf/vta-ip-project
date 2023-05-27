@@ -1,8 +1,9 @@
-import { Container, Row } from "react-bootstrap";
-import MyNavbar from "../components/Navbar";
+import { Col, Container, Row } from "react-bootstrap";
+import MyNavbar from "../components/MyNavbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../configuration/BackendConfig";
+import MyFooter from "../components/MyFooter";
 
 function AdminPage() {
   const [roles, setRoles] = useState([]);
@@ -90,69 +91,72 @@ function AdminPage() {
   }, []);
 
   return (
-    <Container>
-      <Row>
-        <MyNavbar />
-      </Row>
-      <Row>
-        <h2 style={{ color: "#89CFF0", fontSize: "24px", textAlign: "center" }}>
-          Admin Page
-        </h2>
-      </Row>
-      <hr />
-      <Row>
-        <h3>My Roles</h3>
-        <div className="form-group">
+    <>
+      <MyNavbar />
+      <Container>
+        <Row>
+          <h2
+            style={{ color: "#89CFF0", fontSize: "24px", textAlign: "center" }}
+          >
+            Admin Page
+          </h2>
+        </Row>
+        <hr />
+        <Row>
+          <h3>My Roles</h3>
           <div className="form-group">
-            <label>Roles:</label>
-            <ul>
-              {roles.map((role, index) => (
-                <li key={index}>{role}</li>
-              ))}
-            </ul>
+            <div className="form-group">
+              <label>Roles:</label>
+              <ul>
+                {roles.map((role, index) => (
+                  <li key={index}>{role}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      </Row>
-      <hr />
-      <Row>
-        <h3>Add role to user</h3>
-        <div className="form-group">
-          <label>Email:</label>
-          <select
-            className="form-select"
-            onChange={(e) => setEmail(e.target.value)}
-          >
-            <option value="">Select an email</option>
-            {emails.map((email) => (
-              <option key={email} value={email}>
-                {email}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Role:</label>
-          <select
-            className="form-select"
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="">Select a role</option>
-            <option value="DISPLAY_USERS">DISPLAY_USERS</option>
-            <option value="UPDATE_USERS">UPDATE_USERS</option>
-            <option value="DISPLAY_ACCOUNTS">DISPLAY_ACCOUNTS</option>
-          </select>
-        </div>
+        </Row>
+        <hr />
+        <Row>
+          <h3>Add role to user</h3>
+          <div className="form-group">
+            <label>Email:</label>
+            <select
+              className="form-select"
+              onChange={(e) => setEmail(e.target.value)}
+            >
+              <option value="">Select an email</option>
+              {emails.map((email) => (
+                <option key={email} value={email}>
+                  {email}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Role:</label>
+            <select
+              className="form-select"
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="">Select a role</option>
+              <option value="DISPLAY_USERS">DISPLAY_USERS</option>
+              <option value="UPDATE_USERS">UPDATE_USERS</option>
+              <option value="DISPLAY_ACCOUNTS">DISPLAY_ACCOUNTS</option>
+            </select>
+          </div>
 
-        <div className="form-group mt-2">
-          <button
-            className="btn btn-success btn-block"
-            onClick={() => addRoleToUser()}
-          >
-            Add Role
-          </button>
-        </div>
-      </Row>
-    </Container>
+          <div className="form-group mt-2">
+            <button
+              className="btn btn-success btn-block"
+              onClick={() => addRoleToUser()}
+            >
+              Add Role
+            </button>
+          </div>
+        </Row>
+      </Container>
+      <MyFooter />
+    </>
   );
 }
 
