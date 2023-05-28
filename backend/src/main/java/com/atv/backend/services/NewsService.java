@@ -47,11 +47,11 @@ public class NewsService {
 
 
     public static class NewsResponse {
-        private String title;
-        private String description;
-        private String url;
-        private String publishedAt;
-        private String content;
+        private final String title;
+        private final String description;
+        private final String url;
+        private final String publishedAt;
+        private final String content;
 
         public NewsResponse(String title, String description, String url, String publishedAt, String content) {
             this.title = title;

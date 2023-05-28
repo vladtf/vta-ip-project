@@ -21,10 +21,10 @@ public class ExchangeService {
     }
 
     public static class ExchangeResponse {
-        private String from;
-        private String to;
-        private double amount;
-        private double result;
+        private final String from;
+        private final String to;
+        private final double amount;
+        private final double result;
 
         public ExchangeResponse(String from, String to, double amount, double result) {
             this.from = from;
