@@ -112,25 +112,37 @@ mysql> SHOW tables in  mydatabase;
 ## Presentation
 
 Mail Server:
+
 ![](documentation/materials/sprint3/mailosaur.png)
 
 Activation Email:
+
 ![](documentation/materials/sprint3/activation_email.png)
 
 Accounts Page:
+
 ![](documentation/materials/sprint3/accounts_page.png)
 
 Admin Page:
+
 ![](documentation/materials/sprint3/admin_page.png)
 
 Ecs Cluster:
+
 ![](documentation/materials/sprint3/ecs_cluster.png)
 
 Home Page:
+
 ![](documentation/materials/sprint3/home_page.png)
 
+Transactions Page:
+
+![](documentation/materials/sprint3/transactions_page.png)
+
 Login Page:
+
 ![](documentation/materials/sprint3/login_page.png)
 
-Transactions Page:
-![](documentation/materials/sprint3/transactions_page.png)
+Register Page:
+
+![](documentation/materials/sprint3/register_page.png)
