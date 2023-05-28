@@ -38,6 +38,7 @@ function RegistrationPage() {
         window.location.href = "/login";
       })
       .catch((error) => {
+        alert("Registration failed!");
         console.error(error.response.data);
       })
       .finally(() => {

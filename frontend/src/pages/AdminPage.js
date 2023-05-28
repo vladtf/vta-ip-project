@@ -31,6 +31,7 @@ function AdminPage() {
         setRoles(response.data);
       })
       .catch((error) => {
+        alert("Error retrieving roles!");
         console.error(error.response.data);
       });
   };
@@ -53,8 +54,8 @@ function AdminPage() {
         getMyRoles(); // Fetch roles again after adding a role
       })
       .catch((error) => {
-        console.error(error.response.data);
         alert("Error adding role!");
+        console.error(error.response.data);
       });
   };
 

@@ -37,6 +37,7 @@ function TransactionPage() {
         setAccounts(response.data);
       })
       .catch((error) => {
+        alert("Error retrieving accounts!");
         console.error(error.response.data);
       });
   };
@@ -109,6 +110,7 @@ function TransactionPage() {
         fetchTransactions(); // Fetch transactions again after successful transaction
       })
       .catch((error) => {
+        alert("Error sending transaction!");
         console.error(error.response.data);
       });
   };

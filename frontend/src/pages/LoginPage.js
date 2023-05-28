@@ -31,8 +31,8 @@ function LoginPage() {
         window.location.href = "/login";
       })
       .catch((error) => {
-        console.error(error.response.data);
         alert("Login failed!");
+        console.error(error.response.data);
       })
       .finally(() => {
         setLoading(false); // Set loading state to false after the request completes

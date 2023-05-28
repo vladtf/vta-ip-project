@@ -39,6 +39,7 @@ function AccountsPage() {
         setAccounts(response.data);
       })
       .catch((error) => {
+        alert("Error retrieving accounts!");
         console.error(error.response.data);
       });
   };
@@ -71,6 +72,7 @@ function AccountsPage() {
         setAccounts(response.data);
       })
       .catch((error) => {
+        alert("Error adding account!");
         console.error(error.response.data);
       });
   };

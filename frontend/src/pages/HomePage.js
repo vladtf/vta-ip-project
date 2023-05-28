@@ -36,6 +36,7 @@ function HomePage() {
         setAccounts(response.data);
       })
       .catch((error) => {
+        alert("Error retrieving accounts!");
         console.error(error.response.data);
       });
   };
@@ -52,6 +53,7 @@ function HomePage() {
         setTransactions(response.data);
       })
       .catch((error) => {
+        alert("Error retrieving transactions!");
         console.error(error.response.data);
       });
   };
@@ -68,6 +70,7 @@ function HomePage() {
         setExchangeResults(response.data);
       })
       .catch((error) => {
+        alert("Error retrieving exchange results!");
         console.error(error.response.data);
       });
   };
@@ -84,6 +87,7 @@ function HomePage() {
         setNews(response.data);
       })
       .catch((error) => {
+        alert("Error retrieving news!");
         console.error(error.response.data);
       });
   };
