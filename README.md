@@ -6,12 +6,12 @@
   - [Table of Contents](#table-of-contents)
   - [Documentation](#documentation)
   - [Presentations](#presentations)
+  - [Deploy](#deploy)
   - [Local Environment](#local-environment)
     - [Run frontend](#run-frontend)
     - [Run backend](#run-backend)
     - [Run Docker Compose](#run-docker-compose)
     - [Connect to the database](#connect-to-the-database)
-  - [Deploy](#deploy)
   - [Demo](#demo)
 
 ## Documentation
@@ -26,6 +26,20 @@
 
 - [CI CD Presentation](prezentation/ci-cd-presentation.pdf)
 - [Final Presentation](presentation/final-presentation.pptx)
+
+## Deploy
+
+The application is deployed on AWS.
+
+To deploy the entire infrastructure follow the steps below:
+
+- Run `Terraform Apply` in GitHub Actions
+- Run `Build and Push to ECR Backend` in GitHub Actions
+- Run `Build and Push to ECR Frontend` in GitHub Actions
+
+To remove the entire infrastructure follow the steps below:
+
+- Run `Terraform Destroy` in GitHub Actions
 
 ## Local Environment
 
@@ -109,20 +123,6 @@ mysql> SHOW tables in  mydatabase;
 +----------------------+
 1 row in set (0.01 sec)
 ```
-
-## Deploy
-
-The application is deployed on AWS.
-
-To deploy the entire infrastructure follow the steps below:
-
-- Run `Terraform Apply` in GitHub Actions
-- Run `Build and Push to ECR Backend` in GitHub Actions
-- Run `Build and Push to ECR Frontend` in GitHub Actions
-
-To remove the entire infrastructure follow the steps below:
-
-- Run `Terraform Destroy` in GitHub Actions
 
 ## Demo
 
