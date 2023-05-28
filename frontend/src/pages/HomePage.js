@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, ListGroup } from "react-bootstrap";
 import MyNavbar from "../components/MyNavbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -14,10 +14,14 @@ function HomePage() {
 
   const [accounts, setAccounts] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [exchangeResults, setExchangeResults] = useState([]);
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     getAccounts();
     getTransactions();
+    getExchangeResults();
+    getNews();
   }, []);
 
   const getAccounts = () => {
@@ -46,6 +50,38 @@ function HomePage() {
       .then((response) => {
         console.log(response.data);
         setTransactions(response.data);
+      })
+      .catch((error) => {
+        console.error(error.response.data);
+      });
+  };
+
+  const getExchangeResults = () => {
+    const headers = {
+      Authorization: token,
+    };
+
+    axios
+      .get(BACKEND_URL + "/api/exchange", { headers: headers })
+      .then((response) => {
+        console.log(response.data);
+        setExchangeResults(response.data);
+      })
+      .catch((error) => {
+        console.error(error.response.data);
+      });
+  };
+
+  const getNews = () => {
+    const headers = {
+      Authorization: token,
+    };
+
+    axios
+      .get(BACKEND_URL + "/api/news", { headers: headers })
+      .then((response) => {
+        console.log(response.data);
+        setNews(response.data);
       })
       .catch((error) => {
         console.error(error.response.data);
@@ -98,6 +134,36 @@ function HomePage() {
                 </Button>
               </Card.Footer>
             </Card>
+
+            <Card className="mt-4">
+              <Card.Header>Exchange Values</Card.Header>
+              <Card.Body>
+                {exchangeResults.length === 0 ? (
+                  <p>No exchange results found.</p>
+                ) : (
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Result</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {exchangeResults.map((result, index) => (
+                        <tr key={index}>
+                          <td>{result.from}</td>
+                          <td>{result.to}</td>
+                          <td>{result.amount}</td>
+                          <td>{result.result}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </Card.Body>
+            </Card>
           </Col>
           <Col>
             <Card>
@@ -125,6 +191,24 @@ function HomePage() {
                   View All Accounts
                 </Button>
               </Card.Footer>
+            </Card>
+
+            <Card className="mt-4">
+              <Card.Header>News</Card.Header>
+              <Card.Body>
+                {news.length === 0 ? (
+                  <p>No news found.</p>
+                ) : (
+                  <ListGroup variant="flush">
+                    {news.map((item, index) => (
+                      <ListGroup.Item key={index}>
+                        <h5 className="card-title">{item.title}</h5>
+                        <p className="card-text">{item.description}</p>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                )}
+              </Card.Body>
             </Card>
           </Col>
         </Row>

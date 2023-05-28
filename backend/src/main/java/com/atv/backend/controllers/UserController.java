@@ -7,9 +7,7 @@ import com.atv.backend.dao.entities.User;
 import com.atv.backend.requests.LoginRequest;
 import com.atv.backend.requests.RegisterRequest;
 import com.atv.backend.requests.TransactionRequest;
-import com.atv.backend.services.AccountService;
-import com.atv.backend.services.TransactionService;
-import com.atv.backend.services.UserService;
+import com.atv.backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +22,20 @@ public class UserController {
     private final UserService userService;
 
     private final TransactionService transactionService;
+
     private final AccountService accountService;
 
+    private final ExchangeService exchangeService;
+
+    private final NewsService newsService;
 
     @Autowired
-    public UserController(UserService userService, TransactionService transactionService, AccountService accountService) {
+    public UserController(UserService userService, TransactionService transactionService, AccountService accountService, ExchangeService exchangeService, NewsService newsService) {
         this.userService = userService;
         this.transactionService = transactionService;
         this.accountService = accountService;
-
+        this.exchangeService = exchangeService;
+        this.newsService = newsService;
     }
 
     @PostMapping("/register")
@@ -131,6 +134,16 @@ public class UserController {
         User user = userService.getUserByToken(token);
 
         return accountService.findTransactionsByIban(iban, user);
+    }
+
+    @GetMapping("/exchange")
+    public List<ExchangeService.ExchangeResponse> getExchangeRates() {
+        return exchangeService.getExchangeRates();
+    }
+
+    @GetMapping("/news")
+    public List<NewsService.NewsResponse> getNews() {
+        return newsService.getNews();
     }
 
 
