@@ -5,11 +5,13 @@
 - [Program Engineering Project - VTA](#program-engineering-project---vta)
   - [Table of Contents](#table-of-contents)
   - [Documentation](#documentation)
+  - [Presentation](#presentation)
   - [Local Environment](#local-environment)
     - [Run frontend](#run-frontend)
     - [Run backend](#run-backend)
     - [Run Docker Compose](#run-docker-compose)
     - [Connect to the database](#connect-to-the-database)
+  - [Presentation](#presentation-1)
 
 ## Documentation
 
@@ -18,6 +20,11 @@
 - [Sprint 1 - Review](documentation/Sprint%201%20-%20Review.md)
 - [Sprint 2 - Review](documentation/Sprint%202%20-%20Review.md)
 - [Sprint 3 - Review](documentation/Sprint%203%20-%20Review.md)
+
+## Presentation
+
+- [CI CD Presentation](prezentation/ci-cd-presentation.pdf)
+- [Final Presentation](presentation/final-presentation.pptx)
 
 ## Local Environment
 
@@ -101,3 +108,29 @@ mysql> SHOW tables in  mydatabase;
 +----------------------+
 1 row in set (0.01 sec)
 ```
+
+## Presentation
+
+Mail Server:
+![](documentation/materials/sprint3/mailosaur.png)
+
+Activation Email:
+![](documentation/materials/sprint3/activation_email.png)
+
+Accounts Page:
+![](documentation/materials/sprint3/accounts_page.png)
+
+Admin Page:
+![](documentation/materials/sprint3/admin_page.png)
+
+Ecs Cluster:
+![](documentation/materials/sprint3/ecs_cluster.png)
+
+Home Page:
+![](documentation/materials/sprint3/home_page.png)
+
+Login Page:
+![](documentation/materials/sprint3/login_page.png)
+
+Transactions Page:
+![](documentation/materials/sprint3/transactions_page.png)
