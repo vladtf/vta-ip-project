@@ -123,4 +123,25 @@ public class AccountService {
 
         return accounts;
     }
+
+    public List<Account> getAllAccounts(String token) {
+        Iterable<Account> all = accountRepository.findAll();
+        List<Account> allAccounts = new ArrayList<>();
+        all.forEach(allAccounts::add);
+        allAccounts.forEach(account -> account.setUser(null));
+        return allAccounts;
+    }
+
+    public boolean updateAccount(String token, Account account) {
+        Account accountToUpdate = accountRepository.findAccountByIban(account.getIban()).orElseThrow(() -> new RuntimeException("Account not found."));
+
+        if (accountToUpdate.getUser() == null) {
+            throw new RuntimeException("Account not found.");
+        }
+
+        accountToUpdate.setBalance(account.getBalance());
+
+        accountRepository.save(accountToUpdate);
+        return true;
+    }
 }

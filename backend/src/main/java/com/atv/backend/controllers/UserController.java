@@ -68,6 +68,20 @@ public class UserController {
         return accountService.getUserAccountsByToken(token);
     }
 
+    @GetMapping("/accounts/all")
+    public List<Account> getAllAccounts(@RequestHeader("Authorization") String token) {
+        return accountService.getAllAccounts(token);
+    }
+
+    @PutMapping("/accounts")
+    public Boolean updateAccount(@RequestHeader("Authorization") String token, @RequestBody Account account) {
+        if (account.getIban() == null || account.getIban().equals("")) {
+            throw new RuntimeException("iban not provided");
+        }
+
+        return accountService.updateAccount(token, account);
+    }
+
     @PostMapping("/login")
     public boolean loginUser(@RequestBody LoginRequest loginRequest) {
         Token token = userService.login(loginRequest);
