@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import axios from "axios";
 import MyNavbar from "../components/MyNavbar";
 import { BACKEND_URL } from "../configuration/BackendConfig";
@@ -12,6 +12,7 @@ function RegistrationPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [loading, setLoading] = useState(false); // Added loading state
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,6 +26,8 @@ function RegistrationPage() {
       username: firstName + lastName,
     };
 
+    setLoading(true); // Set loading state to true
+
     console.log("Sending registration data: ", postData);
 
     axios
@@ -36,6 +39,9 @@ function RegistrationPage() {
       })
       .catch((error) => {
         console.error(error.response.data);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading state to false after the request completes
       });
   };
 
@@ -136,8 +142,15 @@ function RegistrationPage() {
                     borderColor: "#89CFF0",
                   }}
                   onClick={handleSubmit}
+                  disabled={loading} // Disable the button when loading is true
                 >
-                  Register Now
+                  {loading ? ( // Conditionally render the button text or a spinner based on the loading state
+                    <Spinner animation="border" size="sm" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  ) : (
+                    "Register Now"
+                  )}
                 </Button>
               </div>
 
