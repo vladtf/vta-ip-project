@@ -6,6 +6,10 @@ terraform {
   }
 }
 
+provider "random" {
+  version = "3.5.1"
+}
+
 provider "aws" {
   region = var.region
 }
@@ -264,7 +268,7 @@ resource "aws_ecs_task_definition" "backend_task" {
       }
       environment = [
         {
-          name = "SPRING_DATASOURCE_URL"
+          name  = "SPRING_DATASOURCE_URL"
           value = "jdbc:mariadb://mariadb-service.vta-namespace:3306/vta_database"
         },
         {
@@ -273,7 +277,7 @@ resource "aws_ecs_task_definition" "backend_task" {
         },
         {
           name  = "SPRING_DATASOURCE_PASSWORD"
-          value = "mypassword"
+          value = random_password.mariadb_password.result
         }
       ]
 
@@ -296,6 +300,13 @@ resource "aws_ecs_task_definition" "backend_task" {
 
   depends_on = [aws_iam_role.ecs_task_execution_role]
 }
+
+resource "random_password" "mariadb_password" {
+  length           = 16
+  special          = true
+  override_special = "_%@"
+}
+
 
 resource "aws_ecs_task_definition" "mariadb_task" {
   family       = "mariadb_task"
@@ -320,13 +331,13 @@ resource "aws_ecs_task_definition" "mariadb_task" {
         value = "vta_database"
         }, {
         name  = "MARIADB_ROOT_PASSWORD"
-        value = "myrootpassword"
+        value = random_password.mariadb_password.result
         }, {
         name  = "MARIADB_USER"
         value = "myuser"
         }, {
         name  = "MARIADB_PASSWORD"
-        value = "mypassword"
+        value = random_password.mariadb_password.result
         }, {
         name  = "MYSQL_RANDOM_ROOT_PASSWORD"
         value = "false"
